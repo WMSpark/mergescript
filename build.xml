@@ -144,6 +144,7 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		</if>
 		<antcall target ="readandcopyprefabs" />
 		<antcall target ="readandcopyicons" />
+		<antcall target ="readandcopyResources" />
 		<antcall target ="readandcopythemes"/>
 		<antcall target = "replacepomvalues" /> 
 
@@ -463,4 +464,19 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			</filterchain>
 		</concat>
 	</target>
+
+	<target name="readandcopyResources">
+        <property name="customrepo" value="${customrepo}"/>
+        <property name="corerepo" value="${corerepo}"/>
+        <property file="${customrepo}/changes.properties" />
+        <for list="${resources}" param="resource"  delimiter=",">
+        <sequential>
+                <echo message= "@{resource}"/>
+                <copy todir="${corerepo}_bk/src/main/webapp/resources/@{resource}" overwrite="true">
+                    <fileset dir="${customrepo}/src/main/webapp/resources/@{resource}"/>
+                </copy>
+            </sequential>
+        </for>
+    </target>
+
 </project>
