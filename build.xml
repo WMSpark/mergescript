@@ -168,6 +168,12 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 				<antcall target = "copyProjectUserXml"/>
 			</then>
 		</if>
+		<if>
+			<equals arg1="${copywmproject-properties}" arg2="true"/>
+			<then>
+				<antcall target = "copywmproject-properties"/>
+			</then>
+		</if>
 
 		<antcall target ="zipcorebackupfolder"/>
 	</target>
@@ -478,5 +484,13 @@ The server tasks/definitions used for cloudjee wavemaker production setup
             </sequential>
         </for>
     </target>
+
+	<target name="copywmproject-properties">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<echo message="changing wm-props"/>
+		<copy file="${customrepo}/.wmproject.properties" tofile="${corerepo}_bk/.wmproject.properties" overwrite="true">
+		</copy>
+	</target>
 
 </project>
