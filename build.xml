@@ -3,7 +3,7 @@
 <!--
 The server tasks/definitions used for cloudjee wavemaker production setup
 -->
-<project name="wmcoretasks" default="help" >
+<project name="wmcoretasks" default="help">
 
 	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask"/>
 	<taskdef name="if" classname="net.sf.antcontrib.logic.IfTask"/>
@@ -17,15 +17,13 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<copy todir="${corerepo}_bk/">
 			<fileset dir="${corerepo}"/>
 		</copy>
-
 	</target>
-
 
 	<target name="readandcopypages">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${pages}" param="page"  delimiter=",">
+		<for list="${pages}" param="page" delimiter=",">
 			<sequential>
 				<echo message= "@{page}"/>
 				<echo message="${corerepo}_bk/src/main/webapp/pages/@{page}"/>
@@ -39,23 +37,33 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 	<target name="copysecurityservice">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<property file="${customrepo}/changes.properties" />
-		<property file="${customrepo}/profiles/development.properties" />
-		<for list="${services}" param="service"  delimiter=",">
+		<property file="${customrepo}/changes.properties"/>
+		<property file="${customrepo}/profiles/development.properties"/>
+		<for list="${services}" param="service" delimiter=",">
 			<sequential>
 				<if>
 					<equals arg1="@{service}" arg2="securityService"/>
 					<then>
-						<echo message="security service copied"/>		    
+						<echo message="copying security service"/>
 						<copy todir="${corerepo}_bk/services/@{service}" overwrite="true">
 							<fileset dir="${customrepo}/services/@{service}"/>
 						</copy>
+						<echo message="copying general options"/>
+						<echo message="security service copied"/>
+						<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
+							<arg value="${corerepo}/services/@{service}/designtime/general-options.json"/>
+							<arg value="${customrepo}/services/@{service}/designtime/general-options.json"/>
+							<arg value="${corerepo}_bk/services/@{service}/designtime/general-options.json"/>
+							<classpath>
+								<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+							</classpath>
+						</java>
+						<echo message="sucessfully copied security service"/>
 					</then>
 				</if>
 			</sequential>
 		</for>
 	</target>
-
 
 	<target name="readandcopyservices">
 		<property name="customrepo" value="${customrepo}"/>
@@ -63,15 +71,15 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<property name="issecurity" value="${issecurity}"/>
 		<property file="${customrepo}/changes.properties" />
 		<property file="${customrepo}/profiles/development.properties" />
-		<for list="${services}" param="service"  delimiter=",">
+		<for list="${services}" param="service" delimiter=",">
 			<sequential>
 				<if>
 					<equals arg1="@{service}" arg2="securityService" />
 					<then>
 						<echo message="Ignoring the service"/>
 					</then>
-					<else>	
-						<echo message="${corerepo}_bk/services/@{service}"/> 
+					<else>
+						<echo message="${corerepo}_bk/services/@{service}"/>
 						<copy todir="${corerepo}_bk/services/@{service}" overwrite="true">
 							<fileset dir="${customrepo}/services/@{service}"/>
 						</copy>
@@ -80,11 +88,12 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			</sequential>
 		</for>
 	</target>
+
 	<target name="readandcopyprefabs">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${prefabs}" param="prefab"  delimiter=",">
+		<for list="${prefabs}" param="prefab" delimiter=",">
 			<sequential>
 				<echo message= "@{prefab}"/>
 				<echo message="${corerepo}_bk/src/main/webapp/WEB-INF/prefabs/@{prefab}"/>
@@ -100,7 +109,7 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${themes}" param="theme"  delimiter=",">
+		<for list="${themes}" param="theme" delimiter=",">
 			<sequential>
 				<echo message= "@{theme}"/>
 				<echo message="${corerepo}_bk/src/main/webapp/themes/@{theme}"/>
@@ -112,18 +121,19 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			</sequential>
 		</for>
 	</target>
+
 	<target name="readandcopyicons">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${icons}" param="icon"  delimiter=",">
+		<for list="${icons}" param="icon" delimiter=",">
 			<sequential>
 				<echo message= "@{icon}"/>
 				<echo message="${corerepo}_bk/src/main/webapp/@{icon}"/>
-				<copy todir="${corerepo}_bk/src/main/webapp/" file="${customrepo}/src/main/webapp/@{icon}" overwrite="true" >
+				<copy todir="${corerepo}_bk/src/main/webapp/" file="${customrepo}/src/main/webapp/@{icon}" overwrite="true">
 					<resources>
 						<file file="${customrepo}/src/main/webapp/@{icon}"/>
-					</resources>	
+					</resources>
 				</copy>
 			</sequential>
 		</for>
@@ -146,8 +156,7 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<antcall target ="readandcopyicons" />
 		<antcall target ="readandcopyResources" />
 		<antcall target ="readandcopythemes"/>
-		<antcall target = "replacepomvalues" /> 
-
+		<antcall target = "replacepomvalues" />
 		<antcall target = "profileCopy"/>
 		<if>
 			<equals arg1="${copyi18n}" arg2="true"/>
@@ -157,7 +166,7 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		</if>
 		<antcall target = "copyEnJsonfile" />
 		<if>
-			<equals arg1="${appvariables}" arg2="true"/>
+			<equals arg1="${appVariables}" arg2="true"/>
 			<then>
 				<antcall target = "copyappvariablesfile"/>
 			</then>
@@ -175,7 +184,7 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			</then>
 		</if>
 		<if>
-			<equals arg1="${copywmproject-properties}" arg2="true"/>
+			<equals arg1="${copyWmprojectProperties}" arg2="true"/>
 			<then>
 				<antcall target = "copywmproject-properties"/>
 			</then>
@@ -190,32 +199,30 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<zip destfile="${corerepo}_bk/${customrepo}.zip" basedir="${corerepo}_bk/."/>
 	</target>
 
-
 	<target name = "readpomxmlinIMPL">
 		<property name="customrepo" value="${corerepo}"/>
 		<xmlproperty file="${customrepo}/pom.xml" collapseAttributes="true"/>
-		<property name="groupId"  value="${project.groupId}"/>
-		<property name="artifactId"  value="${project.artifactId}"/>
-		<property name="version"    value="${project.version}"/>
+		<property name="groupId" value="${project.groupId}"/>
+		<property name="artifactId" value="${project.artifactId}"/>
+		<property name="version" value="${project.version}"/>
 		<property name="finalName" value="${project.build.finalName}"/>
 		<echo> groupid :: ${groupId} </echo>
 		<echo> artifactid :: ${artifactId} </echo>
 		<echo> version :: ${version}</echo>
 		<echo> finalname :: ${finalName}</echo>
-
 	</target>
-
 
 	<target name = "readpomxmlincore">
 		<property name="corerepo" value="${corerepo}"/>
 		<xmlproperty file="${corerepo}_bk/pom.xml" collapseAttributes="true"/>
-		<property name="coregroupId"  value="${project.groupId}"/>
-		<property name="coreartifactId"  value="${project.artifactId}"/>
-		<property name="coreversion"    value="${project.version}"/>
+		<property name="coregroupId" value="${project.groupId}"/>
+		<property name="coreartifactId" value="${project.artifactId}"/>
+		<property name="coreversion" value="${project.version}"/>
 		<property name="corefinalname" value="${project.build.finalName}"/>
 		<echo> artifactid :: ${coreartifactId} </echo>
 		<echo> coreversion :: ${coreversion} </echo>
 	</target>
+
 	<target name= "replacepomvalues">
 		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 		<property name="corerepo" value="${corerepo}"/>
@@ -223,17 +230,15 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		</antcallback>
 		<antcallback target="readpomxmlincore" return="coreartifactId,coregroupId,coreversion,corefinalname">
 		</antcallback>
-
-
 		<xmltask source="${corerepo}_bk/pom.xml" dest="${corerepo}_bk/pom.xml" preservetype="true" indent="false">
 			<!-- <replace path="/project/version/text()" withText="${version}"/> -->
-			<replace path="/*[local-name()='project']/*[local-name()='version']/text()" withText="${version}"/> 
+			<replace path="/*[local-name()='project']/*[local-name()='version']/text()" withText="${version}"/>
 			<!-- <replace path="/project/groupId/text()" withText="${groupId}"/> -->
-			<replace path="/*[local-name()='project']/*[local-name()='groupId']/text()" withText="${groupId}"/> 
+			<replace path="/*[local-name()='project']/*[local-name()='groupId']/text()" withText="${groupId}"/>
 			<!--<replace path="/project/artifactId/text()" withText="${artifactId}"/> -->
-			<replace path="/*[local-name()='project']/*[local-name()='artifactId']/text()" withText="${artifactId}"/> 
+			<replace path="/*[local-name()='project']/*[local-name()='artifactId']/text()" withText="${artifactId}"/>
 			<!--<replace path="/project/build/finalName/text()" withText="${finalName}"/> -->
-			<replace path="/*[local-name()='project']/*[local-name()='build']/*[local-name()='finalName']/text()" withText="${finalName}"/> 
+			<replace path="/*[local-name()='project']/*[local-name()='build']/*[local-name()='finalName']/text()" withText="${finalName}"/>
 			<!-- <regexp path="/*[local-name()='project']/*[local-name()='dependencies'/*[local-name()='dependency'/*[local-name()='groupId'/text()" pattern="Test" replace="Prod"/>
 			<regexp path="/*[local-name()='project']/*[local-name()='dependencies'/*[local-name()='dependency'/*[local-name()='artifactId'/text()" pattern="Test" replace="Prod"/>
 			<regexp path="/*[local-name()='project']/*[local-name()='dependencies'/*[local-name()='dependency'/*[local-name()='artifactId'/text()" pattern="Test" replace="Prod"/> -->
@@ -243,53 +248,48 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			<then>
 				<echo message="security is enabled"/>
 				<antcall target="copysecurityJarinPOM" />
-				
+
 			</then>
 		</if>
-
 	</target>
 
 	<target name= "copyappvariablesfile">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<java 
-			classname="comparision.CompareEnJson"  
-			fork="true"  
-			failonerror="true"  
-			maxmemory="128m">
+		<echo message="${corerepo}/src/main/webapp/app.variables.json"></echo>
+		<echo message="${customrepo}/src/main/webapp/app.variables.json"></echo>
+		<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${corerepo}/src/main/webapp/app.variables.json"/>
 			<arg value="${customrepo}/src/main/webapp/app.variables.json"/>
 			<arg value="${corerepo}_bk/src/main/webapp/app.variables.json"/>
-			<classpath>  
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>  
+			<classpath>
+				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
 				<!--<pathelement path="${java.class.path}"/>  -->
-			</classpath>  
+			</classpath>
 		</java>
 	</target>
+
 	<target name= "copyEnJsonfile">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${languages}" param="lang"  delimiter=",">
+		<for list="${languages}" param="lang" delimiter=",">
 			<sequential>
 				<echo message="@{lang}"/>
-				<java 
-					classname="comparision.CompareEnJson"  
-					fork="true"  
-					failonerror="true"  
-					maxmemory="128m">
+				<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/i18n/@{lang}"/>
 					<arg value="${customrepo}/i18n/@{lang}"/>
 					<arg value="${corerepo}_bk/i18n/@{lang}"/>
-					<classpath>  
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>  
+					<classpath>
+						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
 						<!--<pathelement path="${java.class.path}"/>  -->
-					</classpath>  
+					</classpath>
 				</java>
 			</sequential>
 		</for>
 	</target>
+
 	<target name= "copythemeindexfile">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
@@ -298,94 +298,73 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			<equals arg1="${issecurity}" arg2="true"/>
 			<then>
 				<echo message="security is enabled"/>
-				<java 
-					classname="comparision.ReplaceIndexHtml"  
-					fork="true"  
-					failonerror="true"  
-					maxmemory="128m">
+				<java classname="comparision.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/src/main/webapp/index.html"/>
 					<arg value="${customrepo}/src/main/webapp/index.html"/>
 					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
 					<arg value="true"/>
-					
-					<classpath>  
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>  
+
+					<classpath>
+						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
 						<!--<pathelement path="${java.class.path}"/>  -->
-					</classpath>  
+					</classpath>
 				</java>
-				
 			</then>
-		
 			<else>
-				<java 
-					classname="comparision.ReplaceIndexHtml"  
-					fork="true"  
-					failonerror="true"  
-					maxmemory="128m">
+				<java classname="comparision.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/src/main/webapp/index.html"/>
 					<arg value="${customrepo}/src/main/webapp/index.html"/>
 					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
-					<classpath>  
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>  
+					<classpath>
+						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
 						<!--<pathelement path="${java.class.path}"/>  -->
-					</classpath>  
+					</classpath>
 				</java>
-
 			</else>
 		</if>
 	</target>
+
 	<target name= "copydeployprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java 
-			classname="comparision.ProfilePropsCopy"  
-			fork="true"  
-			failonerror="true"  
-			maxmemory="128m">
+		<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/deployment.properties"/>
 			<arg value="${corerepo}_bk/profiles/deployment.properties"/>
-			<classpath>  
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>  
+			<classpath>
+				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
 				<!--<pathelement path="${java.class.path}"/>  -->
-			</classpath>  
+			</classpath>
 		</java>
-
 	</target>
+
 	<target name= "copydevprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java 
-			classname="comparision.ProfilePropsCopy"  
-			fork="true"  
-			failonerror="true"  
-			maxmemory="128m">
+		<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/development.properties"/>
 			<arg value="${corerepo}_bk/profiles/development.properties"/>
-			<classpath>  
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>  
+			<classpath>
+				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
 
-			</classpath>  
+			</classpath>
 		</java>
 	</target>
+
 	<target name="profileCopy">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${profiles}" param="profile"  delimiter=",">
+		<for list="${profiles}" param="profile" delimiter=",">
 			<sequential>
 				<echo message= "@{profile}"/>
-				<java 
-					classname="comparision.ProfilePropsCopy"  
-					fork="true"  
-					failonerror="true"  
-					maxmemory="128m">
+				<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${customrepo}/profiles/@{profile}"/>
 					<arg value="${corerepo}_bk/profiles/@{profile}"/>
 					<arg value="${isImplkeysadd}"/>
-					<classpath>  
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>  
+					<classpath>
+						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
 
-					</classpath>  
+					</classpath>
 				</java>
 				<replace file="${corerepo}_bk/profiles/@{profile}" token="\#" value="#"/>
 				<replace file="${corerepo}_bk/profiles/@{profile}" token="\=" value="="/>
@@ -394,72 +373,34 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			</sequential>
 		</for>
 	</target>
+
 	<target name="copyProjectUserXml">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<copy file="${customrepo}/src/main/webapp/WEB-INF/project-user-spring.xml" tofile="${corerepo}_bk/src/main/webapp/WEB-INF/project-user-spring.xml" overwrite="true">
-
-		</copy>
+		<echo message="copying project user xml"></echo>
+		<copy file="${customrepo}/src/main/webapp/WEB-INF/project-user-spring.xml" tofile="${corerepo}_bk/src/main/webapp/WEB-INF/project-user-spring.xml" overwrite="true"></copy>
 	</target>
+
 	<target name="removetag">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-
 		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
-
-		<replaceregexp file="${corerepo}_bk/pom.xml" match="xsi:schemaLocation=(.*)" 
-			replace=">" byline="true">
-		</replaceregexp> 
-
+		<replaceregexp file="${corerepo}_bk/pom.xml" match="xsi:schemaLocation=(.*)" replace=">" byline="true">
+		</replaceregexp>
 	</target>
-	<target name="test3">
-		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
-		<xmltask source="/tmp/pom.xml" dest="/tmp/pom.xml" preservetype="true" indent="false">
-			<replace path="/*[local-name()='project']/*[local-name()='version']/text()" withText="xxx"></replace>
-		</xmltask>
-	</target>
-
 
 	<target name="copysecurityJarinPOM">
 		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 		<property file="${customrepo}/changes.properties"/>
-		
 		<xmltask source="${corerepo}_bk/pom.xml" dest="${corerepo}_bk/pom.xml" preservetype="true" indent="false">
-
-			<replace 
-				path="/*[local-name()='project']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='groupId']='${corepomsecuritygroupId}']/*[local-name()='groupId']/text()"
-				withText="${implpomsecuritygroupId}"/>
-			
-			<replace 
-				path="/*[local-name()='project']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='artifactId']='${corepomsecurityartifactId}']/*[local-name()='artifactId']/text()"
-				withText="${implpomsecurityartifactId}"/>
-			
-			<replace 
-				path="/*[local-name()='project']/*[local-name()='dependencyManagement']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='groupId']='${corepomsecuritygroupId}']/*[local-name()='groupId']/text()"
-				withText="${implpomsecuritygroupId}"/>
-			
-			<replace 
-				path="/*[local-name()='project']/*[local-name()='dependencyManagement']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='artifactId']='${corepomsecurityartifactId}']/*[local-name()='artifactId']/text()"
-				withText="${implpomsecurityartifactId}"/>
-			
-
-			<replace 
-				path="/*[local-name()='project']/*[local-name()='dependencyManagement']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='groupId']='${implpomsecuritygroupId}']/*[local-name()='version']/text()"
-				withText="${implpomsecurityversion}"/>
-			
-
-		</xmltask>  
+			<replace path="/*[local-name()='project']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='groupId']='${corepomsecuritygroupId}']/*[local-name()='groupId']/text()" withText="${implpomsecuritygroupId}"/>
+			<replace path="/*[local-name()='project']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='artifactId']='${corepomsecurityartifactId}']/*[local-name()='artifactId']/text()" withText="${implpomsecurityartifactId}"/>
+			<replace path="/*[local-name()='project']/*[local-name()='dependencyManagement']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='groupId']='${corepomsecuritygroupId}']/*[local-name()='groupId']/text()" withText="${implpomsecuritygroupId}"/>
+			<replace path="/*[local-name()='project']/*[local-name()='dependencyManagement']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='artifactId']='${corepomsecurityartifactId}']/*[local-name()='artifactId']/text()" withText="${implpomsecurityartifactId}"/>
+			<replace path="/*[local-name()='project']/*[local-name()='dependencyManagement']/*[local-name()='dependencies']/*[local-name()='dependency'][*[local-name()='groupId']='${implpomsecuritygroupId}']/*[local-name()='version']/text()" withText="${implpomsecurityversion}"/>
+		</xmltask>
 	</target>
 
-
-
-	<target name="testjsfile">
-
-		<concat destfile="tmp/output.js">
-			<fileset file="tmp/app.js" />
-			<fileset file="tmp/app_impl.js" />
-		</concat>
-	</target>
 	<target name="appjs1append">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
@@ -467,7 +408,6 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<echo>${appjslineno}</echo>
 		<concat destfile="${corerepo}_bk/src/main/webapp/app.js" append="true" fixlastline="yes" eol="lf">
 			<header filtering="no" trimleading="yes">
-
 			</header>
 			<path path="${customrepo}/src/main/webapp/app.js"/>
 			<filterchain>
@@ -478,18 +418,18 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 	</target>
 
 	<target name="readandcopyResources">
-        <property name="customrepo" value="${customrepo}"/>
-        <property name="corerepo" value="${corerepo}"/>
-        <property file="${customrepo}/changes.properties" />
-        <for list="${resources}" param="resource"  delimiter=",">
-        <sequential>
-                <echo message= "@{resource}"/>
-                <copy todir="${corerepo}_bk/src/main/webapp/resources/@{resource}" overwrite="true">
-                    <fileset dir="${customrepo}/src/main/webapp/resources/@{resource}"/>
-                </copy>
-            </sequential>
-        </for>
-    </target>
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<property file="${customrepo}/changes.properties" />
+		<for list="${resources}" param="resource" delimiter=",">
+			<sequential>
+				<echo message= "@{resource}"/>
+				<copy todir="${corerepo}_bk/src/main/webapp/resources/@{resource}" overwrite="true">
+					<fileset dir="${customrepo}/src/main/webapp/resources/@{resource}"/>
+				</copy>
+			</sequential>
+		</for>
+	</target>
 
 	<target name="copywmproject-properties">
 		<property name="customrepo" value="${customrepo}"/>
@@ -500,11 +440,11 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 	</target>
 
 	<target name="readandcopyi18n">
-        <property name="customrepo" value="${customrepo}"/>
-        <property name="corerepo" value="${corerepo}"/>
-            <copy todir="${corerepo}_bk/i18n" overwrite="true">
-                <fileset dir="${customrepo}/i18n"/>
-            </copy>
-    </target>
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<copy todir="${corerepo}_bk/i18n" overwrite="true">
+			<fileset dir="${customrepo}/i18n"/>
+		</copy>
+	</target>
 
 </project>
