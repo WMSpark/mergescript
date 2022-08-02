@@ -149,6 +149,12 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<antcall target = "replacepomvalues" /> 
 
 		<antcall target = "profileCopy"/>
+		<if>
+			<equals arg1="${copyi18n}" arg2="true"/>
+			<then>
+				<antcall target = "readandcopyi18n"/>
+			</then>
+		</if>
 		<antcall target = "copyEnJsonfile" />
 		<if>
 			<equals arg1="${appvariables}" arg2="true"/>
@@ -166,6 +172,12 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			<equals arg1="${projectUserSpringXml}" arg2="true"/>
 			<then>
 				<antcall target = "copyProjectUserXml"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${copywmproject-properties}" arg2="true"/>
+			<then>
+				<antcall target = "copywmproject-properties"/>
 			</then>
 		</if>
 
@@ -477,6 +489,22 @@ The server tasks/definitions used for cloudjee wavemaker production setup
                 </copy>
             </sequential>
         </for>
+    </target>
+
+	<target name="copywmproject-properties">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<echo message="changing wm-props"/>
+		<copy file="${customrepo}/.wmproject.properties" tofile="${corerepo}_bk/.wmproject.properties" overwrite="true">
+		</copy>
+	</target>
+
+	<target name="readandcopyi18n">
+        <property name="customrepo" value="${customrepo}"/>
+        <property name="corerepo" value="${corerepo}"/>
+            <copy todir="${corerepo}_bk/i18n" overwrite="true">
+                <fileset dir="${customrepo}/i18n"/>
+            </copy>
     </target>
 
 </project>
