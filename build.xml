@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-The server tasks/definitions used for cloudjee wavemaker production setup
--->
+<!-- The server tasks/definitions used for cloudjee wavemaker production setup -->
+
 <project name="wmcoretasks" default="help">
 
 	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask"/>
@@ -117,7 +116,6 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 					<fileset dir="${customrepo}/src/main/webapp/themes/@{theme}"/>
 				</copy>
 				<antcall target="copythemeindexfile"/>
-
 			</sequential>
 		</for>
 	</target>
@@ -297,31 +295,18 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<if>
 			<equals arg1="${issecurity}" arg2="true"/>
 			<then>
-				<echo message="security is enabled"/>
 				<java classname="comparision.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/src/main/webapp/index.html"/>
 					<arg value="${customrepo}/src/main/webapp/index.html"/>
 					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
-					<arg value="true"/>
-
+					<arg value="${issecurity}"/>
 					<classpath>
 						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-						<!--<pathelement path="${java.class.path}"/>  -->
 					</classpath>
 				</java>
 			</then>
-			<else>
-				<java classname="comparision.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
-					<arg value="${corerepo}/src/main/webapp/index.html"/>
-					<arg value="${customrepo}/src/main/webapp/index.html"/>
-					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
-					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-						<!--<pathelement path="${java.class.path}"/>  -->
-					</classpath>
-				</java>
-			</else>
 		</if>
+		<echo message="copied index.html"/>
 	</target>
 
 	<target name= "copydeployprop">
