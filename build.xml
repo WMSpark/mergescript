@@ -49,12 +49,12 @@
 						</copy>
 						<echo message="copying general options"/>
 						<echo message="security service copied"/>
-						<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
+						<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
 							<arg value="${corerepo}/services/@{service}/designtime/general-options.json"/>
 							<arg value="${customrepo}/services/@{service}/designtime/general-options.json"/>
 							<arg value="${corerepo}_bk/services/@{service}/designtime/general-options.json"/>
 							<classpath>
-								<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+								<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 							</classpath>
 						</java>
 						<echo message="sucessfully copied security service"/>
@@ -255,17 +255,15 @@
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<echo message="${corerepo}/src/main/webapp/app.variables.json"></echo>
-		<echo message="${customrepo}/src/main/webapp/app.variables.json"></echo>
-		<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${corerepo}/src/main/webapp/app.variables.json"/>
 			<arg value="${customrepo}/src/main/webapp/app.variables.json"/>
 			<arg value="${corerepo}_bk/src/main/webapp/app.variables.json"/>
 			<classpath>
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-				<!--<pathelement path="${java.class.path}"/>  -->
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
+		<echo message="successfully copies app.variables file"/>
 	</target>
 
 	<target name= "copyEnJsonfile">
@@ -274,18 +272,17 @@
 		<property file="${customrepo}/changes.properties" />
 		<for list="${languages}" param="lang" delimiter=",">
 			<sequential>
-				<echo message="@{lang}"/>
-				<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
+				<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/i18n/@{lang}"/>
 					<arg value="${customrepo}/i18n/@{lang}"/>
 					<arg value="${corerepo}_bk/i18n/@{lang}"/>
 					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-						<!--<pathelement path="${java.class.path}"/>  -->
+						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 			</sequential>
 		</for>
+		<echo message="successfully copied i18n en json"/>
 	</target>
 
 	<target name= "copythemeindexfile">
@@ -295,41 +292,41 @@
 		<if>
 			<equals arg1="${issecurity}" arg2="true"/>
 			<then>
-				<java classname="comparision.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
+				<java classname="comparision.html.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/src/main/webapp/index.html"/>
 					<arg value="${customrepo}/src/main/webapp/index.html"/>
 					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
 					<arg value="${issecurity}"/>
 					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 			</then>
 		</if>
-		<echo message="copied index.html"/>
+		<echo message="successfully replaced index.html"/>
 	</target>
 
 	<target name= "copydeployprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/deployment.properties"/>
 			<arg value="${corerepo}_bk/profiles/deployment.properties"/>
 			<classpath>
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-				<!--<pathelement path="${java.class.path}"/>  -->
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
+		<echo message="successfully copied deployment properties"/>
 	</target>
 
 	<target name= "copydevprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/development.properties"/>
 			<arg value="${corerepo}_bk/profiles/development.properties"/>
 			<classpath>
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 
 			</classpath>
 		</java>
@@ -342,13 +339,12 @@
 		<for list="${profiles}" param="profile" delimiter=",">
 			<sequential>
 				<echo message= "@{profile}"/>
-				<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
+				<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${customrepo}/profiles/@{profile}"/>
 					<arg value="${corerepo}_bk/profiles/@{profile}"/>
 					<arg value="${isImplkeysadd}"/>
 					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-
+						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 				<replace file="${corerepo}_bk/profiles/@{profile}" token="\#" value="#"/>
