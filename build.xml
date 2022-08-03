@@ -199,6 +199,7 @@
 				<antcall target = "copywmformatters-js"/>
 			</then>
 		</if>
+		<antcall target ="addingdependenciesinpom"/>
 		<antcall target ="readandcopyjavafiles"/>
 		<antcall target ="zipcorebackupfolder"/>
 	</target>
@@ -480,6 +481,20 @@
 		<echo message="changing wm-props"/>
 		<copy file="${customrepo}/src/main/webapp/extensions/formatters.js" tofile="${corerepo}_bk/src/main/webapp/extensions/formatters.js" overwrite="true">
 		</copy>
+	</target>
+
+	<target name="addingdependenciesinpom">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<java classname="comparision.xml.AddDependenciesInPom" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/pom.xml"/>
+			<arg value="${customrepo}/pom.xml"/>
+			<arg value="${corerepo}_bk/pom.xml"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
+		<echo message="successfully added dependencies"/>
 	</target>
 
 </project>
