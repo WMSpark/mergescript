@@ -193,6 +193,12 @@
 				<antcall target = "copywmproject-properties"/>
 			</then>
 		</if>
+		<if>
+			<equals arg1="${copyWmFormattersJs}" arg2="true"/>
+			<then>
+				<antcall target = "copywmformatters-js"/>
+			</then>
+		</if>
 		<antcall target ="readandcopyjavafiles"/>
 		<antcall target ="zipcorebackupfolder"/>
 	</target>
@@ -466,6 +472,14 @@
 				<copy file="${customrepo}/src/main/java/com/finacle/obmb/framework/@{javaFile}" tofile="${corerepo}_bk/src/main/java/com/finacle/obmb/framework/@{javaFile}" overwrite="true"/>
 			</sequential>
 		</for>
+	</target>
+
+	<target name="copywmformatters-js">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<echo message="changing wm-props"/>
+		<copy file="${customrepo}/src/main/webapp/extensions/formatters.js" tofile="${corerepo}_bk/src/main/webapp/extensions/formatters.js" overwrite="true">
+		</copy>
 	</target>
 
 </project>
