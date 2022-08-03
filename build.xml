@@ -199,8 +199,10 @@
 				<antcall target = "copywmformatters-js"/>
 			</then>
 		</if>
+
 		<antcall target ="addingdependenciesinpom"/>
 		<antcall target ="readandcopyjavafiles"/>
+		<antcall target ="addingserviceconfigurationsinpom"/>
 		<antcall target ="zipcorebackupfolder"/>
 	</target>
 
@@ -495,6 +497,20 @@
 			</classpath>
 		</java>
 		<echo message="successfully added dependencies"/>
+	</target>
+
+	<target name="addingserviceconfigurationsinpom">
+		<property name="corerepo" value="${corerepo}"/>
+		<property name="customrepo" value="${customrepo}"/>
+		<java classname="comparision.xml.AddServiceConfigurationsInPom" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/pom.xml"/>
+			<arg value="${customrepo}/pom.xml"/>
+			<arg value="${corerepo}_bk/pom.xml"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
+		<echo message="successfully added services under configuration"/>
 	</target>
 
 </project>
