@@ -151,6 +151,12 @@
 			</then>
 		</if>
 		<antcall target ="readandcopyprefabs" />
+		<if>
+			<equals arg1="${copyDependencyJson}" arg2="true"/>
+			<then>
+				<antcall target = "copydependencies-json"/>
+			</then>
+		</if>
 		<antcall target ="readandcopyicons" />
 		<antcall target ="readandcopyResources" />
 		<antcall target ="readandcopythemes"/>
@@ -433,6 +439,21 @@
 		<copy todir="${corerepo}_bk/i18n" overwrite="true">
 			<fileset dir="${customrepo}/i18n"/>
 		</copy>
+	</target>
+
+	<target name= "copydependencies-json">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<property file="${customrepo}/changes.properties" />
+		<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/dependencies.json"/>
+			<arg value="${customrepo}/dependencies.json"/>
+			<arg value="${corerepo}_bk/dependencies.json"/>
+			<arg value="true"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
 	</target>
 
 	<target name="readandcopyjavafiles">
