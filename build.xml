@@ -187,7 +187,7 @@
 				<antcall target = "copywmproject-properties"/>
 			</then>
 		</if>
-
+		<antcall target ="readandcopyjavafiles"/>
 		<antcall target ="zipcorebackupfolder"/>
 	</target>
 
@@ -356,10 +356,17 @@
 	</target>
 
 	<target name="copyProjectUserXml">
-		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<echo message="copying project user xml"></echo>
-		<copy file="${customrepo}/src/main/webapp/WEB-INF/project-user-spring.xml" tofile="${corerepo}_bk/src/main/webapp/WEB-INF/project-user-spring.xml" overwrite="true"></copy>
+		<property name="customrepo" value="${customrepo}"/>
+		<java classname="comparision.xml.MergeProjectUserSpringXml" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/src/main/webapp/WEB-INF/project-user-spring.xml"/>
+			<arg value="${customrepo}/src/main/webapp/WEB-INF/project-user-spring.xml"/>
+			<arg value="${corerepo}_bk/src/main/webapp/WEB-INF/project-user-spring.xml"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
+		<echo message="successfully merged project user xml"/>
 	</target>
 
 	<target name="removetag">
@@ -426,6 +433,18 @@
 		<copy todir="${corerepo}_bk/i18n" overwrite="true">
 			<fileset dir="${customrepo}/i18n"/>
 		</copy>
+	</target>
+
+	<target name="readandcopyjavafiles">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<property file="${customrepo}/changes.properties" />
+		<for list="${javaFiles}" param="javaFile" delimiter=",">
+			<sequential>
+				<echo>copying @{javaFile} </echo>
+				<copy file="${customrepo}/src/main/java/com/finacle/obmb/framework/@{javaFile}" tofile="${corerepo}_bk/src/main/java/com/finacle/obmb/framework/@{javaFile}" overwrite="true"/>
+			</sequential>
+		</for>
 	</target>
 
 </project>
