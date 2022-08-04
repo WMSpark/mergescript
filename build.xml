@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-The server tasks/definitions used for cloudjee wavemaker production setup
--->
+<!-- The server tasks/definitions used for cloudjee wavemaker production setup -->
+
 <project name="wmcoretasks" default="help">
 
 	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask"/>
@@ -50,12 +49,12 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 						</copy>
 						<echo message="copying general options"/>
 						<echo message="security service copied"/>
-						<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
+						<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
 							<arg value="${corerepo}/services/@{service}/designtime/general-options.json"/>
 							<arg value="${customrepo}/services/@{service}/designtime/general-options.json"/>
 							<arg value="${corerepo}_bk/services/@{service}/designtime/general-options.json"/>
 							<classpath>
-								<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+								<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 							</classpath>
 						</java>
 						<echo message="sucessfully copied security service"/>
@@ -117,7 +116,6 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 					<fileset dir="${customrepo}/src/main/webapp/themes/@{theme}"/>
 				</copy>
 				<antcall target="copythemeindexfile"/>
-
 			</sequential>
 		</for>
 	</target>
@@ -153,6 +151,12 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 			</then>
 		</if>
 		<antcall target ="readandcopyprefabs" />
+		<if>
+			<equals arg1="${copyDependencyJson}" arg2="true"/>
+			<then>
+				<antcall target = "copydependencies-json"/>
+			</then>
+		</if>
 		<antcall target ="readandcopyicons" />
 		<antcall target ="readandcopyResources" />
 		<antcall target ="readandcopythemes"/>
@@ -189,7 +193,16 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 				<antcall target = "copywmproject-properties"/>
 			</then>
 		</if>
+		<if>
+			<equals arg1="${copyWmFormattersJs}" arg2="true"/>
+			<then>
+				<antcall target = "copywmformatters-js"/>
+			</then>
+		</if>
 
+		<antcall target ="addingdependenciesinpom"/>
+		<antcall target ="readandcopyjavafiles"/>
+		<antcall target ="addingserviceconfigurationsinpom"/>
 		<antcall target ="zipcorebackupfolder"/>
 	</target>
 
@@ -257,17 +270,15 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<echo message="${corerepo}/src/main/webapp/app.variables.json"></echo>
-		<echo message="${customrepo}/src/main/webapp/app.variables.json"></echo>
-		<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${corerepo}/src/main/webapp/app.variables.json"/>
 			<arg value="${customrepo}/src/main/webapp/app.variables.json"/>
 			<arg value="${corerepo}_bk/src/main/webapp/app.variables.json"/>
 			<classpath>
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-				<!--<pathelement path="${java.class.path}"/>  -->
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
+		<echo message="successfully copies app.variables file"/>
 	</target>
 
 	<target name= "copyEnJsonfile">
@@ -276,18 +287,17 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<property file="${customrepo}/changes.properties" />
 		<for list="${languages}" param="lang" delimiter=",">
 			<sequential>
-				<echo message="@{lang}"/>
-				<java classname="comparision.CompareEnJson" fork="true" failonerror="true" maxmemory="128m">
+				<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/i18n/@{lang}"/>
 					<arg value="${customrepo}/i18n/@{lang}"/>
 					<arg value="${corerepo}_bk/i18n/@{lang}"/>
 					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-						<!--<pathelement path="${java.class.path}"/>  -->
+						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 			</sequential>
 		</for>
+		<echo message="successfully copied i18n en json"/>
 	</target>
 
 	<target name= "copythemeindexfile">
@@ -297,54 +307,41 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<if>
 			<equals arg1="${issecurity}" arg2="true"/>
 			<then>
-				<echo message="security is enabled"/>
-				<java classname="comparision.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
+				<java classname="comparision.html.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/src/main/webapp/index.html"/>
 					<arg value="${customrepo}/src/main/webapp/index.html"/>
 					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
-					<arg value="true"/>
-
+					<arg value="${issecurity}"/>
 					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-						<!--<pathelement path="${java.class.path}"/>  -->
+						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 			</then>
-			<else>
-				<java classname="comparision.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
-					<arg value="${corerepo}/src/main/webapp/index.html"/>
-					<arg value="${customrepo}/src/main/webapp/index.html"/>
-					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
-					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-						<!--<pathelement path="${java.class.path}"/>  -->
-					</classpath>
-				</java>
-			</else>
 		</if>
+		<echo message="successfully replaced index.html"/>
 	</target>
 
 	<target name= "copydeployprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/deployment.properties"/>
 			<arg value="${corerepo}_bk/profiles/deployment.properties"/>
 			<classpath>
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-				<!--<pathelement path="${java.class.path}"/>  -->
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
+		<echo message="successfully copied deployment properties"/>
 	</target>
 
 	<target name= "copydevprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/development.properties"/>
 			<arg value="${corerepo}_bk/profiles/development.properties"/>
 			<classpath>
-				<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 
 			</classpath>
 		</java>
@@ -357,13 +354,12 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<for list="${profiles}" param="profile" delimiter=",">
 			<sequential>
 				<echo message= "@{profile}"/>
-				<java classname="comparision.ProfilePropsCopy" fork="true" failonerror="true" maxmemory="128m">
+				<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${customrepo}/profiles/@{profile}"/>
 					<arg value="${corerepo}_bk/profiles/@{profile}"/>
 					<arg value="${isImplkeysadd}"/>
 					<classpath>
-						<pathelement location="dist/comparision-0.0.1-SNAPSHOT-jar-with-dependencies.jar"/>
-
+						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 				<replace file="${corerepo}_bk/profiles/@{profile}" token="\#" value="#"/>
@@ -375,10 +371,17 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 	</target>
 
 	<target name="copyProjectUserXml">
-		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<echo message="copying project user xml"></echo>
-		<copy file="${customrepo}/src/main/webapp/WEB-INF/project-user-spring.xml" tofile="${corerepo}_bk/src/main/webapp/WEB-INF/project-user-spring.xml" overwrite="true"></copy>
+		<property name="customrepo" value="${customrepo}"/>
+		<java classname="comparision.xml.MergeProjectUserSpringXml" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/src/main/webapp/WEB-INF/project-user-spring.xml"/>
+			<arg value="${customrepo}/src/main/webapp/WEB-INF/project-user-spring.xml"/>
+			<arg value="${corerepo}_bk/src/main/webapp/WEB-INF/project-user-spring.xml"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
+		<echo message="successfully merged project user xml"/>
 	</target>
 
 	<target name="removetag">
@@ -445,6 +448,69 @@ The server tasks/definitions used for cloudjee wavemaker production setup
 		<copy todir="${corerepo}_bk/i18n" overwrite="true">
 			<fileset dir="${customrepo}/i18n"/>
 		</copy>
+	</target>
+
+	<target name= "copydependencies-json">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<property file="${customrepo}/changes.properties" />
+		<java classname="comparision.json.CompareAndMergeJson" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/dependencies.json"/>
+			<arg value="${customrepo}/dependencies.json"/>
+			<arg value="${corerepo}_bk/dependencies.json"/>
+			<arg value="true"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="readandcopyjavafiles">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<property file="${customrepo}/changes.properties" />
+		<for list="${javaFiles}" param="javaFile" delimiter=",">
+			<sequential>
+				<echo>copying @{javaFile} </echo>
+				<copy file="${customrepo}/src/main/java/com/finacle/obmb/framework/@{javaFile}" tofile="${corerepo}_bk/src/main/java/com/finacle/obmb/framework/@{javaFile}" overwrite="true"/>
+			</sequential>
+		</for>
+	</target>
+
+	<target name="copywmformatters-js">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<echo message="changing wm-props"/>
+		<copy file="${customrepo}/src/main/webapp/extensions/formatters.js" tofile="${corerepo}_bk/src/main/webapp/extensions/formatters.js" overwrite="true">
+		</copy>
+	</target>
+
+	<target name="addingdependenciesinpom">
+		<property name="customrepo" value="${customrepo}"/>
+		<property name="corerepo" value="${corerepo}"/>
+		<java classname="comparision.xml.AddDependenciesInPom" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/pom.xml"/>
+			<arg value="${customrepo}/pom.xml"/>
+			<arg value="${corerepo}_bk/pom.xml"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
+		<echo message="successfully added dependencies"/>
+	</target>
+
+	<target name="addingserviceconfigurationsinpom">
+		<property name="corerepo" value="${corerepo}"/>
+		<property name="customrepo" value="${customrepo}"/>
+		<java classname="comparision.xml.AddServiceConfigurationsInPom" fork="true" failonerror="true" maxmemory="128m">
+			<arg value="${corerepo}/pom.xml"/>
+			<arg value="${customrepo}/pom.xml"/>
+			<arg value="${corerepo}_bk/pom.xml"/>
+			<classpath>
+				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+			</classpath>
+		</java>
+		<echo message="successfully added services under configuration"/>
 	</target>
 
 </project>
