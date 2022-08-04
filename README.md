@@ -46,22 +46,22 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 # How changes.properties will work
 
 #### pages
-> In this property we are specifying the names of pages/partials (newly created or) that we want to persist from the implementation project.
+> In this property specify the names of pages/partials (newly created or) that we want to persist from the implementation project.
 
 >   Example: Main, DashBoard, partialAccounts
 
 #### services
-> Here we will be adding all the names of services that we want to persist from implementation project.
+> Specify all the names of services that we want to persist from implementation project.
 
 >   Example: testJavaService,randomUser, test_db, securityService
 
 #### prefabs
-> This property we are using to merge prefabs that we want to persist from the implementation project src/main/webapp/WEB-INF/prefabs/.
+> This property we are using to merge prefabs that we want to persist from the implementation project src/main/webapp/WEB-INF/prefabs/. specify all the Prefab names we want to merge from implementation project
 
 >   Example: QRCOde, Googlemaps
 
 #### icons
-> In this property we will be specifying the icon names from the implementation project src/main/webapp/WEB-INF/prefabs/ that we want to merge.
+> Specify all the icon names from the implementation project src/main/webapp/WEB-INF/prefabs/ that we want to merge.
 
 #### themes
 > Specify the themes names from implementation project src/main/webapp/themes to merge.
@@ -77,8 +77,10 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 >  Example: en.json, hi.json
 
 #### appjs=false
+> Enable this flag to concat implementation app.js changes. 
 
 #### appjslineno=285
+> Specify the line number from appjs that we want to concat from implementation app.js. 
 
 #### profiles
 > Add the property files here to persist implementation props.
@@ -89,7 +91,7 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 > Enable this flag (true) to merge implementation project src/main/webapp/WEB-INF/project-user-spring.xml.
 
 #### resources
-> In this property add the folders/subfolders from the resources that we want to persist from the implementation project.
+> In this property add the all folders/subfolders from the resources that we want to persist from the implementation project.
 
 >   Example:images, icons, files
 
