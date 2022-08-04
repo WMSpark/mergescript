@@ -45,59 +45,66 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 
 # How changes.properties will work
 
-# pages
-> In this property we are specifying the names of pages/partials (newly created or) that we want to persist from the implementation project
-> Example: Main, DashBoard, partialAccounts
+#### pages
+> In this property we are specifying the names of pages/partials (newly created or) that we want to persist from the implementation project.
 
-# services
-> Here we will be adding all the names of services that we want to persist from implementation project
-> Example: testJavaService,randomUser, test_db, securityService
+>   Example: Main, DashBoard, partialAccounts
 
-# prefabs
+#### services
+> Here we will be adding all the names of services that we want to persist from implementation project.
+
+>   Example: testJavaService,randomUser, test_db, securityService
+
+#### prefabs
 > This property we are using to merge prefabs that we want to persist from the implementation project src/main/webapp/WEB-INF/prefabs/.
-> Example: QRCOde, Googlemaps
 
-# icons
+>   Example: QRCOde, Googlemaps
+
+#### icons
 > In this property we will be specifying the icon names from the implementation project src/main/webapp/WEB-INF/prefabs/ that we want to merge.
 
-# themes
+#### themes
 > Specify the themes names from implementation project src/main/webapp/themes to merge.
-> Example: dark
 
-# appVariables=true
+>   Example: dark
+
+#### appVariables=true
 > Enable this flag (true) to merge implementation project src/main/webapp/app.variables.json.
  
-# languages
+#### languages
 > In the specify all Locale file names that you want to merge.
+
 >  Example: en.json, hi.json
 
-# appjs=false
+#### appjs=false
 
-# appjslineno=285
+#### appjslineno=285
 
-# profiles
+#### profiles
 > Add the property files here to persist implementation props.
+
 >  Example: development.properties,deployment.properties
 
-# projectUserSpringXml
+#### projectUserSpringXml
 > Enable this flag (true) to merge implementation project src/main/webapp/WEB-INF/project-user-spring.xml.
 
-# resources
+#### resources
 > In this property add the folders/subfolders from the resources that we want to persist from the implementation project.
->   Example:images, icons, files
 
-# copyWmprojectProperties
+>   Example:images, icons, files
+
+#### copyWmprojectProperties
 > Enable this flag (true) to persist .wmproject.properties of  implementation project.
 
-# copyi18n
+#### copyi18n
 > Enable this flag (true) to persist i18n from the implementation Project.
 
-# copyDependencyJson
+#### copyDependencyJson
 > Enable this flag (true) to merge Dependency.Json with implementation project.
 
-# copyWmFormattersJs
+#### copyWmFormattersJs
 > Enable this flag (true) to copy Formatters.js from implementation Project.
 
-# javaFiles
+#### javaFiles
 > Specify the filter names here to persist the filters from implementation project.
 > Note: specify the path in readandcopyjavafiles target from build.xml (Ex: src/main/java/com/finacle/obmb/framework).
