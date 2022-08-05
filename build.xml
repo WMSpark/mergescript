@@ -54,7 +54,7 @@
 							<arg value="${customrepo}/services/@{service}/designtime/general-options.json"/>
 							<arg value="${corerepo}_bk/services/@{service}/designtime/general-options.json"/>
 							<classpath>
-								<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+								<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 							</classpath>
 						</java>
 						<echo message="sucessfully copied security service"/>
@@ -275,7 +275,7 @@
 			<arg value="${customrepo}/src/main/webapp/app.variables.json"/>
 			<arg value="${corerepo}_bk/src/main/webapp/app.variables.json"/>
 			<classpath>
-				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+				<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
 		<echo message="successfully copies app.variables file"/>
@@ -292,7 +292,7 @@
 					<arg value="${customrepo}/i18n/@{lang}"/>
 					<arg value="${corerepo}_bk/i18n/@{lang}"/>
 					<classpath>
-						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+						<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 			</sequential>
@@ -313,7 +313,7 @@
 					<arg value="${corerepo}_bk/src/main/webapp/index.html"/>
 					<arg value="${issecurity}"/>
 					<classpath>
-						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+						<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 			</then>
@@ -328,7 +328,7 @@
 			<arg value="${customrepo}/profiles/deployment.properties"/>
 			<arg value="${corerepo}_bk/profiles/deployment.properties"/>
 			<classpath>
-				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+				<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
 		<echo message="successfully copied deployment properties"/>
@@ -341,7 +341,7 @@
 			<arg value="${customrepo}/profiles/development.properties"/>
 			<arg value="${corerepo}_bk/profiles/development.properties"/>
 			<classpath>
-				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+				<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 
 			</classpath>
 		</java>
@@ -359,7 +359,7 @@
 					<arg value="${corerepo}_bk/profiles/@{profile}"/>
 					<arg value="${isImplkeysadd}"/>
 					<classpath>
-						<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+						<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
 				<replace file="${corerepo}_bk/profiles/@{profile}" token="\#" value="#"/>
@@ -378,7 +378,7 @@
 			<arg value="${customrepo}/src/main/webapp/WEB-INF/project-user-spring.xml"/>
 			<arg value="${corerepo}_bk/src/main/webapp/WEB-INF/project-user-spring.xml"/>
 			<classpath>
-				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+				<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
 		<echo message="successfully merged project user xml"/>
@@ -460,7 +460,7 @@
 			<arg value="${corerepo}_bk/dependencies.json"/>
 			<arg value="true"/>
 			<classpath>
-				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+				<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
 	</target>
@@ -472,7 +472,9 @@
 		<for list="${javaFiles}" param="javaFile" delimiter=",">
 			<sequential>
 				<echo>copying @{javaFile} </echo>
-				<copy file="${customrepo}/src/main/java/com/finacle/obmb/framework/@{javaFile}" tofile="${corerepo}_bk/src/main/java/com/finacle/obmb/framework/@{javaFile}" overwrite="true"/>
+				<copy todir="${corerepo}_bk/@{javaFile}" overwrite="true">
+					<fileset dir="${customrepo}/@{javaFile}"/>
+				</copy>
 			</sequential>
 		</for>
 	</target>
@@ -493,7 +495,7 @@
 			<arg value="${customrepo}/pom.xml"/>
 			<arg value="${corerepo}_bk/pom.xml"/>
 			<classpath>
-				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+				<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
 		<echo message="successfully added dependencies"/>
@@ -507,7 +509,7 @@
 			<arg value="${customrepo}/pom.xml"/>
 			<arg value="${corerepo}_bk/pom.xml"/>
 			<classpath>
-				<pathelement location="dist/comparision-1.0.0-jar-with-dependencies.jar"/>
+				<pathelement location="comparision-1.1.0-jar-with-dependencies.jar"/>
 			</classpath>
 		</java>
 		<echo message="successfully added services under configuration"/>
