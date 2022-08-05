@@ -40,3 +40,95 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 > The results folder will be created on the same folder the source folder exist and the name of the folder be like sourceFolder_bk.
 > navigate to sourceFolder_bk and inside the folder will find the zip file for the results.
 > we can use this file to reimport to Wavemaker.
+
+
+
+# How changes.properties will work
+
+#### pages
+> Usage- Specify the names of pages/partials that you want to retain from the implementation project.
+
+>   Example: pages=Main,DashBoard,partialAccounts
+
+#### services
+> Usage- Specify the names of service(folder) that you want to retain from implementation project
+
+>   Example: services=testJavaService,randomUser,test_db,securityService
+
+#### prefabs
+> Usage- Specify all the Prefab names you want to reatin from implementation project
+
+>   Example: prefabs=QRCOde, Googlemaps
+
+#### icons
+> Usage- Specify all the icon names in src/main/webapp/ that you want to reatin from implementation project
+
+>   Example: icons=favicon.png, userImg.png
+
+#### themes
+> Usage- Specify all the icon names in src/main/webapp/themes that you want to reatin from implementation project
+
+>   Example: themes=dark
+
+#### appVariables
+>  Usage- Enable this flag to merge the file of both the projects(src/main/webapp/app.variables.json)
+
+>   Example: appVariables=true
+
+#### languages
+>  Usage-  Specify all the i18n file names that you want to merge from implementation project
+
+>   Example: languages=en.json, hi.json
+
+#### appjs
+>  Usage- Enable this flag to concat implementation app.js changes
+
+>   Example: appjs=true
+
+#### appjslineno
+>  Usage- Specify the line number from appjs(from implementation), from where you want to concat 
+
+>   Example: appjslineno=285
+
+#### profiles
+>  Usage- Specify all the properties file names that you want to reatin from implementation project
+
+>  Example: profiles=development.properties,deployment.properties
+
+#### projectUserSpringXml
+>  Usage- Enable this flag to merge the file of both the projects(src/main/webapp/WEB-INF/project-user-spring.xml)
+
+>   Example: projectUserSpringXml=true
+
+#### resources
+> Usage- Specify all the folder names(src/main/webapp/resources) that you want to merge from both the projects
+
+>   Example:resources= images,icons,files
+
+#### copyWmprojectProperties
+>  Usage- Enable this flag to reatin the file(.wmproject.properties) from implementation project
+
+>   Example:copyWmprojectProperties= true
+
+#### copyi18n
+>  Usage- Enable this flag to retain i18n files specific to implementation project
+
+>   Example:copyi18n= true
+
+#### copyDependencyJson
+>  Usage- Enable this flag to merge dependency.json from both the projects
+
+>   Example:copyDependencyJson= true
+
+
+#### copyWmFormattersJs
+>  Usage- Enable this flag to retain Formatters.js specific to implementation project
+
+>   Example:copyWmFormattersJs= rue
+
+
+#### javaFiles
+> Usage- Specify all the paths in where you wanted to retain java files from implementation project
+
+>   Example:javaFiles= src/main/java/myproject/filters
+
