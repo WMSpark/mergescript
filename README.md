@@ -46,67 +46,89 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 # How changes.properties will work
 
 #### pages
-> In this property specify the names of pages/partials (newly created or) that we want to persist from the implementation project.
+> Usage- Specify the names of pages/partials that you want to retain from the implementation project.
 
->   Example: Main, DashBoard, partialAccounts
+>   Example: pages=Main,DashBoard,partialAccounts
 
 #### services
-> Specify all the names of services that we want to persist from implementation project.
+> Usage- Specify the names of service(folder) that you want to retain from implementation project
 
->   Example: testJavaService,randomUser, test_db, securityService
+>   Example: services=testJavaService,randomUser,test_db,securityService
 
 #### prefabs
-> This property we are using to merge prefabs that we want to persist from the implementation project src/main/webapp/WEB-INF/prefabs/. specify all the Prefab names we want to merge from implementation project
+> Usage- Specify all the Prefab names you want to reatin from implementation project
 
->   Example: QRCOde, Googlemaps
+>   Example: prefabs=QRCOde, Googlemaps
 
 #### icons
-> Specify all the icon names from the implementation project src/main/webapp/WEB-INF/prefabs/ that we want to merge.
+> Usage- Specify all the icon names in src/main/webapp/ that you want to reatin from implementation project
+
+>   Example: icons=favicon.png, userImg.png
 
 #### themes
-> Specify the themes names from implementation project src/main/webapp/themes to merge.
+> Usage- Specify all the icon names in src/main/webapp/themes that you want to reatin from implementation project
 
->   Example: dark
+>   Example: themes=dark
 
-#### appVariables=true
-> Enable this flag (true) to merge implementation project src/main/webapp/app.variables.json.
- 
+#### appVariables
+>  Usage- Enable this flag to merge the file of both the projects(src/main/webapp/app.variables.json)
+
+>   Example: appVariables=true
+
 #### languages
-> In the specify all Locale file names that you want to merge.
+>  Usage-  Specify all the i18n file names that you want to merge from implementation project
 
->  Example: en.json, hi.json
+>   Example: languages=en.json, hi.json
 
-#### appjs=false
-> Enable this flag to concat implementation app.js changes. 
+#### appjs
+>  Usage- Enable this flag to concat implementation app.js changes
 
-#### appjslineno=285
-> Specify the line number from appjs that we want to concat from implementation app.js. 
+>   Example: appjs=true
+
+#### appjslineno
+>  Usage- Specify the line number from appjs(from implementation), from where you want to concat 
+
+>   Example: appjslineno=285
 
 #### profiles
-> Add the property files here to persist implementation props.
+>  Usage- Specify all the properties file names that you want to reatin from implementation project
 
->  Example: development.properties,deployment.properties
+>  Example: profiles=development.properties,deployment.properties
 
 #### projectUserSpringXml
-> Enable this flag (true) to merge implementation project src/main/webapp/WEB-INF/project-user-spring.xml.
+>  Usage- Enable this flag to merge the file of both the projects(src/main/webapp/WEB-INF/project-user-spring.xml)
+
+>   Example: projectUserSpringXml=true
 
 #### resources
-> In this property add the all folders/subfolders from the resources that we want to persist from the implementation project.
+> Usage- Specify all the folder names(src/main/webapp/resources) that you want to merge from both the projects
 
->   Example:images, icons, files
+>   Example:resources= images,icons,files
 
 #### copyWmprojectProperties
-> Enable this flag (true) to persist .wmproject.properties of  implementation project.
+>  Usage- Enable this flag to reatin the file(.wmproject.properties) from implementation project
+
+>   Example:copyWmprojectProperties= true
 
 #### copyi18n
-> Enable this flag (true) to persist i18n from the implementation Project.
+>  Usage- Enable this flag to retain i18n files specific to implementation project
+
+>   Example:copyi18n= true
 
 #### copyDependencyJson
-> Enable this flag (true) to merge Dependency.Json with implementation project.
+>  Usage- Enable this flag to merge dependency.json from both the projects
+
+>   Example:copyDependencyJson= true
+
 
 #### copyWmFormattersJs
-> Enable this flag (true) to copy Formatters.js from implementation Project.
+>  Usage- Enable this flag to retain Formatters.js specific to implementation project
+
+>   Example:copyWmFormattersJs= rue
+
 
 #### javaFiles
-> Specify the filter names here to persist the filters from implementation project.
-> Note: specify the path in readandcopyjavafiles target from build.xml (Ex: src/main/java/com/finacle/obmb/framework).
+> Usage- Specify all the paths in where you wanted to retain java files from implementation project
+
+>   Example:javaFiles= src/main/java/myproject/filters
+
