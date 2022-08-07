@@ -152,7 +152,7 @@
 		</if>
 		<antcall target ="readandcopyprefabs" />
 		<if>
-			<equals arg1="${copyDependencyJson}" arg2="true"/>
+			<equals arg1="${dependencyJson}" arg2="true"/>
 			<then>
 				<antcall target = "copydependencies-json"/>
 			</then>
@@ -163,7 +163,7 @@
 		<antcall target = "replacepomvalues" />
 		<antcall target = "profileCopy"/>
 		<if>
-			<equals arg1="${copyi18n}" arg2="true"/>
+			<equals arg1="${i18n}" arg2="true"/>
 			<then>
 				<antcall target = "readandcopyi18n"/>
 			</then>
@@ -188,13 +188,13 @@
 			</then>
 		</if>
 		<if>
-			<equals arg1="${copyWmprojectProperties}" arg2="true"/>
+			<equals arg1="${wmprojectProperties}" arg2="true"/>
 			<then>
 				<antcall target = "copywmproject-properties"/>
 			</then>
 		</if>
 		<if>
-			<equals arg1="${copyWmFormattersJs}" arg2="true"/>
+			<equals arg1="${wmFormattersJs}" arg2="true"/>
 			<then>
 				<antcall target = "copywmformatters-js"/>
 			</then>
@@ -505,7 +505,7 @@
 		<property name="corerepo" value="${corerepo}"/>
 		<property name="customrepo" value="${customrepo}"/>
 		<java classname="comparision.xml.AddServiceConfigurationsInPom" fork="true" failonerror="true" maxmemory="128m">
-			<arg value="${corerepo}/pom.xml"/>
+			<arg value="${corerepo}_bk/pom.xml"/>
 			<arg value="${customrepo}/pom.xml"/>
 			<arg value="${corerepo}_bk/pom.xml"/>
 			<classpath>
