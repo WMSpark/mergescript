@@ -505,7 +505,7 @@
 		<property name="corerepo" value="${corerepo}"/>
 		<property name="customrepo" value="${customrepo}"/>
 		<java classname="comparision.xml.AddServiceConfigurationsInPom" fork="true" failonerror="true" maxmemory="128m">
-			<arg value="${corerepo}/pom.xml"/>
+			<arg value="${corerepo}_bk/pom.xml"/>
 			<arg value="${customrepo}/pom.xml"/>
 			<arg value="${corerepo}_bk/pom.xml"/>
 			<classpath>
