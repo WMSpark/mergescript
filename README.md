@@ -105,23 +105,23 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 
 >   Example:resources= images,icons,files
 
-#### copyWmprojectProperties
+#### wmprojectProperties
 >  Usage- Enable this flag to reatin the file(.wmproject.properties) from implementation project
 
 >   Example:copyWmprojectProperties= true
 
-#### copyi18n
+#### i18n
 >  Usage- Enable this flag to retain i18n files specific to implementation project
 
 >   Example:copyi18n= true
 
-#### copyDependencyJson
+#### dependencyJson
 >  Usage- Enable this flag to merge dependency.json from both the projects
 
 >   Example:copyDependencyJson= true
 
 
-#### copyWmFormattersJs
+#### wmFormattersJs
 >  Usage- Enable this flag to retain Formatters.js specific to implementation project
 
 >   Example:copyWmFormattersJs= rue
