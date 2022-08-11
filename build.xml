@@ -160,7 +160,7 @@
 		<antcall target ="readandcopyicons" />
 		<antcall target ="readandcopyResources" />
 		<antcall target ="readandcopythemes"/>
-		<antcall target = "replacepomvalues" />
+		<!-- <antcall target = "replacepomvalues" /> -->
 		<antcall target = "profileCopy"/>
 		<if>
 			<equals arg1="${i18n}" arg2="true"/>
@@ -203,6 +203,7 @@
 		<antcall target ="addingdependenciesinpom"/>
 		<antcall target ="readandcopyjavafiles"/>
 		<antcall target ="addingserviceconfigurationsinpom"/>
+		<antcall target = "replacepomvalues" />
 		<antcall target ="zipcorebackupfolder"/>
 	</target>
 
