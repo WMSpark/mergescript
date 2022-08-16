@@ -100,11 +100,6 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 
 >   Example: projectUserSpringXml=true
 
-#### resources
-> Usage- Specify all the folder names(src/main/webapp/resources) that you want to merge from both the projects
-
->   Example:resources= images,icons,files
-
 #### wmprojectProperties
 >  Usage- Enable this flag to reatin the file(.wmproject.properties) from implementation project
 
@@ -126,9 +121,13 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 
 >   Example:copyWmFormattersJs= rue
 
+#### folders
+> Usage- Specify all the folder names(src/main/webapp/resources) along with the path that you want to merge from both the projects
 
-#### javaFiles
-> Usage- Specify all the paths in where you wanted to retain java files from implementation project
+>   Example:folders = src/main/webapp/sbResources,src/main/webapp/resources/icons,src/main/webapp/resources/images
 
->   Example:javaFiles= src/main/java/myproject/filters
+#### files
+> Usage- Specify all the files along with the paths in where you wanted to retain files from implementation project
+
+>   Example:files= src/main/webapp/resources/newFileNameFromDerivedProject.js
 
