@@ -158,7 +158,6 @@
 			</then>
 		</if>
 		<antcall target ="readandcopyicons" />
-		<antcall target ="readandcopyResources" />
 		<antcall target ="readandcopythemes"/>
 		<!-- <antcall target = "replacepomvalues" /> -->
 		<antcall target = "profileCopy"/>
@@ -201,7 +200,8 @@
 		</if>
 
 		<antcall target ="addingdependenciesinpom"/>
-		<antcall target ="readandcopyjavafiles"/>
+		<antcall target ="readandcopyfolders" />
+		<antcall target ="readandcopyfiles"/>
 		<antcall target ="addingserviceconfigurationsinpom"/>
 		<antcall target = "replacepomvalues" />
 		<antcall target ="zipcorebackupfolder"/>
@@ -421,15 +421,15 @@
 		</concat>
 	</target>
 
-	<target name="readandcopyResources">
+	<target name="readandcopyfolders">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${resources}" param="resource" delimiter=",">
+		<for list="${folders}" param="folder" delimiter=",">
 			<sequential>
 				<echo message= "@{resource}"/>
-				<copy todir="${corerepo}_bk/src/main/webapp/resources/@{resource}" overwrite="true">
-					<fileset dir="${customrepo}/src/main/webapp/resources/@{resource}"/>
+				<copy todir="${corerepo}_bk/@{folder}" overwrite="true">
+					<fileset dir="${customrepo}/@{folder}"/>
 				</copy>
 			</sequential>
 		</for>
@@ -466,15 +466,17 @@
 		</java>
 	</target>
 
-	<target name="readandcopyjavafiles">
+	<target name="readandcopyfiles">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<for list="${javaFiles}" param="javaFile" delimiter=",">
+		<for list="${files}" param="file" delimiter=",">
 			<sequential>
-				<echo>copying @{javaFile} </echo>
-				<copy todir="${corerepo}_bk/@{javaFile}" overwrite="true">
+				<echo>copying @{file} </echo>
+				<!--<copy todir="${corerepo}_bk/@{javaFile}" overwrite="true">
 					<fileset dir="${customrepo}/@{javaFile}"/>
+				</copy> -->
+				<copy file="${customrepo}/@{file}" tofile="${corerepo}_bk/@{file}" overwrite="true">
 				</copy>
 			</sequential>
 		</for>
