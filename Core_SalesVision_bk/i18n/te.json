@@ -1,0 +1,19 @@
+{
+  "messages" : {
+    "MERGE_SCRIPT" : "తెలుగు",
+    "ProductName" : "ProductName",
+    "WelcomKey" : "Welcome IMPL Value",
+    "ProductId" : "ProductId"
+  },
+  "formats" : {
+    "date" : "MMM d, yyyy",
+    "currency" : "USD",
+    "time" : "h:mm:ss a"
+  },
+  "files" : {
+    "angular" : "te",
+    "fullCalendar" : null,
+    "moment" : "te"
+  },
+  "prefabMessages" : { }
+}

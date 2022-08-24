@@ -1,0 +1,16 @@
+<wm-page pagetitle="Manager Sales Pipeline" name="page1">
+    <wm-header content="header" name="header1"></wm-header>
+    <wm-content name="content1">
+        <wm-left-panel columnwidth="2" content="leftnav" name="left_panel1"></wm-left-panel>
+        <wm-page-content columnwidth="10" name="page_content1">
+            <wm-table name="QuotesTable" title="Sales Pipeline" dataset="bind:Variables.GetQuotes.dataSet" navigation="Basic" filtermode="search" gridclass="" showrecordcount="true" showheader="true" searchlabel="Search by">
+                <wm-table-column binding="customers.name" caption="Customer" edit-widget-type="text" related-entity-name="Customers" type="string" generator="assigned" readonly="true" sortable="false" show="true"></wm-table-column>
+                <wm-table-column binding="quoteStatus.quoteStatus" caption="Deal Stage" edit-widget-type="text" related-entity-name="QuoteStatus" type="string" generator="assigned" readonly="true" sortable="false" show="true"></wm-table-column>
+                <wm-table-column binding="estimatedSale" caption="Deal Size" edit-widget-type="number" type="integer" generator="assigned" readonly="true" formatpattern="toCurrency" currencypattern="USD" sortable="false" show="true"></wm-table-column>
+                <wm-table-column binding="expectedCloseDate" caption="Expected Close Date" edit-widget-type="date" type="date" generator="assigned" readonly="true" sortable="false" show="true"></wm-table-column>
+                <wm-table-column binding="reps.name" caption="Assigned To" edit-widget-type="text" related-entity-name="Reps" type="string" generator="assigned" readonly="true" sortable="false" show="true"></wm-table-column>
+            </wm-table>
+        </wm-page-content>
+    </wm-content>
+    <wm-footer content="footer" name="footer1"></wm-footer>
+</wm-page>

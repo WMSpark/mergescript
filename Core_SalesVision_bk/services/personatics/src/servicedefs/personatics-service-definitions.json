@@ -1,0 +1,34 @@
+{
+  "personatics_RestServiceVirtualController-invoke" : {
+    "id" : "personatics_RestServiceVirtualController-invoke",
+    "crudOperationId" : null,
+    "service" : "restService",
+    "controller" : "RestServiceVirtualController",
+    "operationType" : null,
+    "type" : "personatics.RootResponse",
+    "wmServiceOperationInfo" : {
+      "name" : "invoke",
+      "methodType" : "get",
+      "relativePath" : "/personatics/personatics",
+      "directPath" : null,
+      "httpMethod" : "get",
+      "parameters" : [ {
+        "name" : "demoUser",
+        "parameterType" : "query",
+        "required" : false,
+        "type" : "String",
+        "readOnly" : false,
+        "contentType" : null
+      } ],
+      "definitions" : { },
+      "produces" : [ "application/json" ],
+      "consumes" : [ "application/json" ],
+      "proxySettings" : {
+        "web" : true,
+        "mobile" : true,
+        "withCredentials" : false
+      },
+      "securityDefinitions" : [ ]
+    }
+  }
+}

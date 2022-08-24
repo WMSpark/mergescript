@@ -1,0 +1,30 @@
+---
+apiVersion: autoscaling/v2beta2 #autoscaling/v2beta1 v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: wmapp-hpa-APP_NAME
+spec:
+  scaleTargetRef:
+    # point the HPA at the sample application
+    # you created above
+    apiVersion: apps/v1
+    kind: Deployment
+    name: wmapp-APP_NAME   # name of deployment
+  minReplicas: 1
+  maxReplicas: 1
+  metrics:
+  # use a "Pods" metric, which takes the average of the
+  # given metric across all pods controlled by the autoscaling target
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+

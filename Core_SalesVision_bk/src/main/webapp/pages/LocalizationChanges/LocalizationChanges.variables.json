@@ -1,0 +1,25 @@
+{
+  "SalesVisionCreateProducts" : {
+    "_id" : "wm-SalesVisionCreateProducts-wm.ServiceVariable-1637125891444",
+    "name" : "SalesVisionCreateProducts",
+    "owner" : "Page",
+    "category" : "wm.ServiceVariable",
+    "dataBinding" : [ ],
+    "type" : "com.salesvision.salesvision.Products",
+    "service" : "SalesVision",
+    "operation" : "createProducts",
+    "operationId" : "ProductsController_createProducts",
+    "operationType" : "post",
+    "serviceType" : "DataService",
+    "dataSet" : [ ],
+    "isList" : false,
+    "maxResults" : 20,
+    "startUpdate" : true,
+    "autoUpdate" : true,
+    "inFlightBehavior" : "executeLast",
+    "transformationRequired" : false,
+    "saveInPhonegap" : false,
+    "isDefault" : true,
+    "controller" : "Products"
+  }
+}

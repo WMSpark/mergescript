@@ -1,0 +1,31 @@
+{
+    "allowedHosts": null,
+    "customFilterList": null,
+    "sslConfig": {
+        "excludedUrls": null,
+        "sslPort": 443,
+        "useSSL": false
+    },
+    "xssConfig": {
+        "policyType": "IMPORT",
+        "xssFilterStrategy": "ENCODE",
+        "dataBackwardCompatibility": false,
+        "policyFile": null,
+        "enforceXssSecurity": true
+    },
+    "corsConfig": {
+        "pathEntries": [{
+            "path": "/**",
+            "allowedOrigins": "*",
+            "name": "root"
+        }],
+        "maxAge": 1600,
+        "enabled": false,
+        "allowCredentials": false
+    },
+    "frameOptions": {
+        "mode": "SAMEORIGIN",
+        "allowFromUrl": null,
+        "enabled": true
+    }
+}

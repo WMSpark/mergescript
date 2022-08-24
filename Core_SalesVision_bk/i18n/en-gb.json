@@ -1,0 +1,19 @@
+{
+  "messages" : {
+    "MERGE_SCRIPT" : "English (United Kingdom)",
+    "ProductName" : "ProductName",
+    "WelcomKey" : "Welcome IMPL Value",
+    "ProductId" : "ProductId"
+  },
+  "formats" : {
+    "date" : "dd-MMM-yyyy",
+    "currency" : "USD",
+    "time" : "HH:mm:ss"
+  },
+  "files" : {
+    "angular" : "en-gb",
+    "fullCalendar" : "en-gb",
+    "moment" : "en-gb"
+  },
+  "prefabMessages" : { }
+}

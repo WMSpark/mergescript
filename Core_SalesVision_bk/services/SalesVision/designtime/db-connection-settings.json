@@ -1,0 +1,78 @@
+{
+  "username" : "{WM_CLOUD_MYSQL_USER_NAME}",
+  "password" : "{WM_CLOUD_MYSQL_PASSWORD}",
+  "url" : "jdbc:mysql://{WM_CLOUD_MYSQL_HOST}/SalesVision?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&createDatabaseIfNotExist=true",
+  "driverClass" : "com.mysql.jdbc.Driver",
+  "dialect" : "com.wavemaker.runtime.data.dialect.MySQLDialect",
+  "serviceId" : "SalesVision",
+  "packageName" : "com.salesvision.salesvision",
+  "dbType" : "MySQL",
+  "host" : "{WM_CLOUD_MYSQL_HOST}",
+  "dbName" : "SalesVision",
+  "port" : null,
+  "schemaName" : null,
+  "tableFilter" : [ {
+    "table" : "BADGES",
+    "schema" : null
+  }, {
+    "table" : "CHANNELS",
+    "schema" : null
+  }, {
+    "table" : "CUSTOMERS",
+    "schema" : null
+  }, {
+    "table" : "FOLLOW_UPS",
+    "schema" : null
+  }, {
+    "table" : "LEADS",
+    "schema" : null
+  }, {
+    "table" : "PRODUCTS",
+    "schema" : null
+  }, {
+    "table" : "QUOTES",
+    "schema" : null
+  }, {
+    "table" : "QUOTE_STATUS",
+    "schema" : null
+  }, {
+    "table" : "REPS",
+    "schema" : null
+  }, {
+    "table" : "REWARDS",
+    "schema" : null
+  }, {
+    "table" : "SALES",
+    "schema" : null
+  }, {
+    "table" : "STATES",
+    "schema" : null
+  }, {
+    "table" : "TASKS",
+    "schema" : null
+  }, {
+    "table" : "TASK_PRIORITY",
+    "schema" : null
+  }, {
+    "table" : "Users",
+    "schema" : null
+  } ],
+  "schemaFilter" : [ ],
+  "impersonateUser" : false,
+  "activeDirectoryDomain" : null,
+  "hbm2ddl" : "update",
+  "maxPageSize" : 100,
+  "minPoolSize" : 2,
+  "maxPoolSize" : 4,
+  "transactionTimeout" : 30,
+  "dataSourceType" : "WM_MANAGED_DATASOURCE",
+  "jndiName" : "",
+  "reloadInfo" : {
+    "reload" : false,
+    "reason" : null,
+    "message" : null,
+    "reImport" : false
+  },
+  "readOnly" : false,
+  "metadataDialect" : null
+}

@@ -1,0 +1,46 @@
+<wm-page pagetitle="Validation Changes" name="page1">
+    <wm-header content="header" name="header1"></wm-header>
+    <wm-content name="content1">
+        <wm-left-panel columnwidth="2" content="leftnav" name="left_panel1"></wm-left-panel>
+        <wm-page-content columnwidth="10" name="page_content1">
+            <wm-form errormessage="" captionposition="left" title="Form" enctype="application/x-www-form-urlencoded" method="post" dataset="bind:Variables.SalesVisionCreateCustomers.dataSet" captionalign="left" name="createCustomersForm1">
+                <wm-layoutgrid columns="1" name="layoutgrid1">
+                    <wm-gridrow name="gridrow1"></wm-gridrow>
+                    <wm-gridrow name="gridrow2">
+                        <wm-composite name="composite1">
+                            <wm-label class="h4 control-label" caption="Customers Details" name="label1"></wm-label>
+                        </wm-composite>
+                    </wm-gridrow>
+                    <wm-gridrow name="gridrow3">
+                        <wm-gridcolumn columnwidth="12" name="gridcolumn1">
+                            <wm-form-field readonly="false" name="Customers_company" displayname="Company" key="Customers.company" type="string" show="true" widget="text" maxchars="20"></wm-form-field>
+                        </wm-gridcolumn>
+                    </wm-gridrow>
+                    <wm-gridrow name="gridrow4">
+                        <wm-gridcolumn columnwidth="12" name="gridcolumn2">
+                            <wm-form-field readonly="false" name="Customers_id" displayname="Id" key="Customers.id" type="integer" show="true" widget="number" textalign="right" minvalue="10"></wm-form-field>
+                        </wm-gridcolumn>
+                    </wm-gridrow>
+                    <wm-gridrow name="gridrow5">
+                        <wm-gridcolumn columnwidth="12" name="gridcolumn3">
+                            <wm-form-field readonly="false" name="Customers_name" displayname="Name" key="Customers.name" type="string" show="true" widget="text"></wm-form-field>
+                        </wm-gridcolumn>
+                    </wm-gridrow>
+                    <wm-gridrow name="gridrow6">
+                        <wm-gridcolumn columnwidth="12" name="gridcolumn4">
+                            <wm-form-field readonly="false" name="Customers_stateId" displayname="State Id" key="Customers.stateId" type="integer" show="true" widget="number" textalign="right"></wm-form-field>
+                        </wm-gridcolumn>
+                    </wm-gridrow>
+                    <wm-gridrow name="gridrow7">
+                        <wm-gridcolumn columnwidth="12" name="gridcolumn5">
+                            <wm-form-field readonly="false" name="Customers_states" displayname="States" key="Customers.states" type="list" show="true" widget="select"></wm-form-field>
+                        </wm-gridcolumn>
+                    </wm-gridrow>
+                </wm-layoutgrid>
+                <wm-form-action key="reset" class="form-reset btn-default" iconclass="wi wi-refresh" display-name="Reset" type="reset"></wm-form-action>
+                <wm-form-action key="save" class="form-save btn-success" iconclass="wi wi-save" display-name="Save" type="submit"></wm-form-action>
+            </wm-form>
+        </wm-page-content>
+    </wm-content>
+    <wm-footer content="footer" name="footer1"></wm-footer>
+</wm-page>

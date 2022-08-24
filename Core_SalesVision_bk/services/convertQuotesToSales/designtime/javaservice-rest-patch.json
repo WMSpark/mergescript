@@ -1,0 +1,46 @@
+{
+  "description" : null,
+  "methods" : {
+    "convert" : [ {
+      "url" : {
+        "value" : "/convert",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "POST",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "quote" : {
+          "name" : {
+            "value" : "quote",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "BODY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : true,
+            "modified" : true
+          }
+        },
+        "sale" : {
+          "name" : {
+            "value" : "sale",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "BODY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : true,
+            "modified" : true
+          }
+        }
+      }
+    } ]
+  }
+}

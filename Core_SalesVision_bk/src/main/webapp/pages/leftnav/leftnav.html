@@ -1,0 +1,28 @@
+<wm-partial name="leftnav" type="leftnav">
+    <wm-nav name="leftnavigation" type="pills" layout="stacked">
+        <wm-nav-item name="list_dashboard">
+            <wm-anchor caption="Dashboard" name="dashboardLink" iconclass="" on-click="Actions.goToPage_Dashboard.invoke()" iconwidth="18px" iconurl="resources/images/imagelists/dashboard-icon.png"></wm-anchor>
+        </wm-nav-item>
+        <wm-nav-item name="saleRepSales_pipeline" accessroles="Sales Executive,user" show="bind:Variables.mvGetRole.dataSet.dataValue != 'salesHead'">
+            <wm-anchor caption="Sales Pipeline" name="salesRepSalePipeline" iconclass="" on-click="Actions.goToPage_SalesPipeline.invoke()" show="true" iconwidth="18px" accessroles="Everyone" iconurl="resources/images/imagelists/sales-icon.png"></wm-anchor>
+        </wm-nav-item>
+        <wm-nav-item name="salesHeadSales_pipeline" accessroles="Regional Sales Head,manager" show="bind:Variables.mvGetRole.dataSet.dataValue == 'salesHead'">
+            <wm-anchor caption="Sales Pipeline" iconclass="" on-click="Actions.goToPage_ManagerSalesPipeline.invoke()" name="salesHeadSalePipeline" show="true" iconwidth="18px" accessroles="Everyone" iconurl="resources/images/imagelists/sales-icon.png"></wm-anchor>
+        </wm-nav-item>
+        <wm-nav-item name="customerNavItem" accessroles="Everyone">
+            <wm-anchor name="customerLink" iconclass="" caption="Customers" on-click="Actions.goToPage_ExistingCustomers.invoke()" show="true" iconwidth="18px" iconurl="resources/images/imagelists/teamwork-icon.png"></wm-anchor>
+        </wm-nav-item>
+        <wm-nav-item name="myTeamNavItem" show="bind:Variables.mvGetRole.dataSet.dataValue == 'salesHead'" accessroles="Regional Sales Head,manager">
+            <wm-anchor caption="My Team" iconclass="" on-click="Actions.goToPage_MyTeam.invoke()" name="myTeamLink" show="true" iconwidth="18px" iconurl="resources/images/imagelists/myTeam_icon.png"></wm-anchor>
+        </wm-nav-item>
+        <wm-nav-item name="logoutNavItem" show="false">
+            <wm-anchor name="logoutLink" iconclass="fa fa-sign-out fa-lg" caption="Logout" on-click="Actions.logoutAction.invoke()" iconwidth="18px"></wm-anchor>
+        </wm-nav-item>
+        <wm-nav-item name="nav_item7">
+            <wm-anchor name="anchor7" iconclass="wi wi-file" on-click="Actions.goToPage_testPage.invoke()"></wm-anchor>
+        </wm-nav-item>
+        <wm-nav-item name="nav_item8">
+            <wm-anchor name="anchor8" iconclass="wi wi-view-compact" caption="PartialPage" on-click="Actions.goToPage_PartialPage.invoke()"></wm-anchor>
+        </wm-nav-item>
+    </wm-nav>
+</wm-partial>

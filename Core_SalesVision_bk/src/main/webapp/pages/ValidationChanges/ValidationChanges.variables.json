@@ -1,0 +1,25 @@
+{
+  "SalesVisionCreateCustomers" : {
+    "_id" : "wm-SalesVisionCreateCustomers-wm.ServiceVariable-1637132963265",
+    "name" : "SalesVisionCreateCustomers",
+    "owner" : "Page",
+    "category" : "wm.ServiceVariable",
+    "dataBinding" : [ ],
+    "type" : "com.salesvision.salesvision.Customers",
+    "service" : "SalesVision",
+    "operation" : "createCustomers",
+    "operationId" : "CustomersController_createCustomers",
+    "operationType" : "post",
+    "serviceType" : "DataService",
+    "dataSet" : [ ],
+    "isList" : false,
+    "maxResults" : 20,
+    "startUpdate" : false,
+    "autoUpdate" : true,
+    "inFlightBehavior" : "executeLast",
+    "transformationRequired" : false,
+    "saveInPhonegap" : false,
+    "isDefault" : true,
+    "controller" : "Customers"
+  }
+}

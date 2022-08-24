@@ -1,0 +1,34 @@
+{
+  "TestJavaController_test" : {
+    "id" : "TestJavaController_test",
+    "crudOperationId" : null,
+    "service" : "testJavaService",
+    "controller" : "TestJavaController",
+    "operationType" : null,
+    "type" : "string",
+    "wmServiceOperationInfo" : {
+      "name" : "test",
+      "methodType" : "get",
+      "relativePath" : "/testJava/test",
+      "directPath" : null,
+      "httpMethod" : "get",
+      "parameters" : [ {
+        "name" : "name",
+        "parameterType" : "query",
+        "required" : false,
+        "type" : "java.lang.String",
+        "readOnly" : false,
+        "contentType" : null
+      } ],
+      "definitions" : { },
+      "produces" : null,
+      "consumes" : null,
+      "proxySettings" : {
+        "web" : true,
+        "mobile" : true,
+        "withCredentials" : false
+      },
+      "securityDefinitions" : [ ]
+    }
+  }
+}

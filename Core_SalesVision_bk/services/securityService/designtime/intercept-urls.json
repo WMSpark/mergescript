@@ -1,0 +1,26 @@
+[ {
+  "urlPattern" : "/pages/Login/**",
+  "permission" : "PermitAll",
+  "roles" : [ ],
+  "httpMethod" : null
+}, {
+  "urlPattern" : "/pages/ManagerSalesPipeline/**",
+  "permission" : "Role",
+  "roles" : [ "manager" ],
+  "httpMethod" : null
+}, {
+  "urlPattern" : "/pages/MyTeam/**",
+  "permission" : "Role",
+  "roles" : [ "manager" ],
+  "httpMethod" : null
+}, {
+  "urlPattern" : "/pages/SalesPipeline/**",
+  "permission" : "Role",
+  "roles" : [ "user" ],
+  "httpMethod" : null
+}, {
+  "urlPattern" : "/**",
+  "permission" : "Authenticated",
+  "roles" : null,
+  "httpMethod" : null
+} ]

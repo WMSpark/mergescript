@@ -1,0 +1,161 @@
+# version 1.0 10-20-2020
+
+name: wavemaker cicd
+trigger:
+  branches:
+    include:
+      - master
+
+variables: 
+  # Add these under variables section in the azure pipeline
+  demo_image_repository: $(demo_repository_name)
+  azureContainerRegistry: $(acr_service_name)
+  aks_service: $(aks_service_name)
+  image_registry: $(acr_registry)
+  subcription_service: $(az_subcription_service)
+  storage_account: $(storage_account_name)
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
+  demo_build_profile: $(demo_maven_build_profile)
+  webapp_replicas: $(no_of_webapp_repicas)
+  database_container: $(default_database_container)
+  demo_namespace: $(demo_env_namespace)
+  application_context: $(application_name)
+  demo_cdn_url: $(demo_env_cdn_url)
+  demo_blob: $(demo_container_blob)
+  demo_hostname: $(demo_env_hostname)
+  tls_secretname: $(tls_secret_name)
+  project_name: $(unique_name_for_application)
+  demo_website_private_key: $(demo_website_private_key_filename)
+  demo_website_bundle_crt: $(demo_website_bundle_certificate_filename)  
+pool:
+    vmImage: 'ubuntu-18.04'
+stages:
+- stage: build_and_deploy
+  jobs:
+  - job: maven_build_and_docker_build
+    displayName: Maven Build and Docker Image Build
+    steps:
+      - task: Cache@2
+        inputs:
+          key: 'maven | "$(Agent.OS)" | **/pom.xml'
+          restoreKeys: |
+            maven | "$(Agent.OS)"
+            maven
+          path: $(MAVEN_CACHE_FOLDER)
+        displayName: Cache Maven Artifacts
+      - script: |
+            wget https://nodejs.org/dist/v10.15.0/node-v10.15.0-linux-x64.tar.gz
+            mkdir $(Build.SourcesDirectory)/node
+            tar -xzf node-v10.15.0-linux-x64.tar.gz -C $(Build.SourcesDirectory)/node
+            sudo rm -f /usr/local/bin/node
+            sudo rm -f /usr/local/bin/npm
+            sudo ln -s $(Build.SourcesDirectory)/node/node-v10.15.0-linux-x64/bin/node /usr/local/bin/node
+            sudo ln -s $(Build.SourcesDirectory)/node/node-v10.15.0-linux-x64/bin/npm  /usr/local/bin/npm
+            sudo chown -R root:root $(Build.SourcesDirectory)/node
+        displayName: Install Prerequisites
+      - script: |
+            echo "mvn clean install -P$(demo_build_profile) -Dcdn-url=$(demo_cdn_url)/$(Build.BuildId)/ng-bundle/"
+            mvn clean install -P$(demo_build_profile) -Dcdn-url=$(demo_cdn_url)/$(Build.BuildId)/ng-bundle/
+            mkdir static_content
+            unzip ./target/ui-artifact.zip -d static_content/
+        displayName: Maven Build on master Branch
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+      - task: AzureCLI@2
+        displayName: Uploading Demo Static Content to AzureBlob
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          azureSubscription: $(subcription_service)
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az storage blob upload-batch -s ./static_content/ -d $(demo_blob)  --destination-path $(Build.BuildId) --account-name $(storage_account)  
+      - task: Docker@2
+        displayName: Login to ACR
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+        inputs:
+          command: login
+          containerRegistry: $(azureContainerRegistry)
+      - task: Docker@2
+        displayName: Build and Push DEMO Docker Image
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          containerRegistry: |
+            $(azureContainerRegistry)
+          repository: $(demo_image_repository)
+          command: buildAndPush
+          tags: |
+            $(Build.BuildId) 
+  - job: AKS_deployment_to_DEMO_Env
+    dependsOn: maven_build_and_docker_build
+    displayName: Deploy to DEMO AKS Env
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    steps:
+    - script: |
+          sed -i '/replicas/  s/1/$(webapp_replicas)/g' k8s-manifestfiles/wm_app_webapp.yml
+          sed -i '49,63 s/^/#/' k8s-manifestfiles/wm_app_webapp.yml
+          sed -i '/image/   s/CONTAINER_IMAGE/$(image_registry)\/$(demo_image_repository):tag/g' k8s-manifestfiles/wm_app_webapp.yml
+          sed -i '/path/   s/MY_APPLICATION\/\*/$(application_context)\/\*/g' k8s-manifestfiles/wm_app_nginx_ingress_service.yml
+          sed -i '/host/   s/testapp.com/$(demo_hostname)/g' k8s-manifestfiles/wm_app_nginx_ingress_service.yml
+          sed -i '/secretName/  s/MYTLS_SECRET/$(tls_secretname)/g' k8s-manifestfiles/wm_app_nginx_ingress_service.yml
+      displayName: preparing webapp replicas and container image name
+    - script: |
+          sed -i 's/APP_NAME/$(project_name)/g' k8s-manifestfiles/*
+      displayName: preparing manifestfiles
+    - task: DownloadSecureFile@1
+      name: websitebundle
+      displayName: 'Download Website Certificate'
+      inputs:
+        secureFile: '$(demo_website_bundle_crt)'
+    - task: DownloadSecureFile@1
+      name: websiteprivatekey
+      displayName: 'Download Website Private Key'
+      inputs:
+        secureFile: '$(demo_website_private_key)'
+    - task: Kubernetes@1
+      displayName: Creating TLS Secret in DEMO Env
+      inputs:
+        connectionType: Kubernetes Service Connection
+        kubernetesServiceEndpoint: $(aks_service)
+        command: create
+        arguments: secret tls $(tls_secretname)  --namespace $(demo_namespace)  --key $(websiteprivatekey.secureFilePath)  --cert $(websitebundle.secureFilePath)
+      continueOnError: true
+      
+    - task: KubernetesManifest@0
+      displayName: Deploying App Config and Secrets to DEMO Env
+      inputs:
+        kubernetesServiceConnection: $(aks_service)
+        namespace: $(demo_namespace)
+        manifests: k8s-manifestfiles/wm_app_config_and_secret.yml
+
+    - task: KubernetesManifest@0
+      condition: eq(variables['database_container'], 'yes')
+      displayName: Deploy Database and App containers to DEMO Env
+      inputs:
+        kubernetesServiceConnection: $(aks_service)
+        namespace: $(demo_namespace)
+        manifests: k8s-manifestfiles/database_statefulset.yml
+        
+    - task: KubernetesManifest@0
+      displayName: Deploy App container to DEMO Env
+      inputs:
+        kubernetesServiceConnection: $(aks_service)
+        namespace: $(demo_namespace)
+        manifests: k8s-manifestfiles/wm_app_webapp.yml
+        containers: |
+          $(image_registry)/$(demo_image_repository):$(Build.BuildId)
+
+    - task: KubernetesManifest@0
+      displayName: Deploy App HPA to DEMO Env
+      inputs:
+        kubernetesServiceConnection: $(aks_service)
+        namespace: $(demo_namespace)
+        manifests: k8s-manifestfiles/wm_app_hpa.yml
+    - task: KubernetesManifest@0
+      displayName: Deploy App Ingress Service to DEMO Env
+      inputs:
+        kubernetesServiceConnection: $(aks_service)
+        namespace: $(demo_namespace)
+        manifests: k8s-manifestfiles/wm_app_nginx_ingress_service.yml  
+        
+

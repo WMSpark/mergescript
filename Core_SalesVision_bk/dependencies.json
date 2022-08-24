@@ -1,0 +1,20 @@
+[
+    {
+        "artifactDependencyList": null,
+        "artifactType": "THEME",
+        "name": "Sales Vision",
+        "version": "1.0"
+    },
+    {
+        "artifactDependencyList": null,
+        "artifactType": "PREFAB",
+        "name": "NoUIRangeSlider",
+        "version": "1.18"
+    },
+    {
+        "artifactDependencyList": null,
+        "artifactType": "PREFAB",
+        "name": "googlemaps",
+        "version": "6.11"
+    }
+]

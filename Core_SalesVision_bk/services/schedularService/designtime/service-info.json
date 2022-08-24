@@ -1,0 +1,7 @@
+{
+  "id" : "schedularService",
+  "type" : "JavaService",
+  "packageNames" : [ "com.salesvision.schedularservice" ],
+  "serviceClassNames" : [ "com.salesvision.schedularservice.SchedularService" ],
+  "title" : "schedularService"
+}

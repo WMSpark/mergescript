@@ -1,0 +1,323 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "2.0",
+    "x-WM-USE_PROXY_FOR_WEB" : true,
+    "x-WM-USE_PROXY_FOR_MOBILE" : true,
+    "x-WM-API_ID" : "bd5f0b79-bc82-42dc-b64e-eabfaa8a467c",
+    "x-WM-SERVICE_ID" : "restService",
+    "x-WM-SERVICE_TYPE" : "RestService",
+    "x-WM-USE_WITH_CREDENTIALS" : false
+  },
+  "host" : "3.16.51.2:8006",
+  "basePath" : "",
+  "tags" : [ {
+    "name" : "RestServiceVirtualController",
+    "description" : "Rest service swagger documentation"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/personatics/personatics" : {
+      "get" : {
+        "tags" : [ "RestServiceVirtualController" ],
+        "operationId" : "personatics_RestServiceVirtualController-invoke",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "demoUser",
+          "in" : "query",
+          "description" : "demoUser",
+          "required" : false,
+          "type" : "string",
+          "format" : "string",
+          "x-WM-VARIABLE_KEY" : "",
+          "x-WM-EDITABLE" : false,
+          "x-WM-VARIABLE_TYPE" : "PROMPT"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/RootResponse"
+            }
+          }
+        },
+        "x-WM-METHOD_NAME" : "invoke",
+        "x-WM-ACCESS_SPECIFIER" : "APP_ONLY"
+      },
+      "x-WM-BASE_PATH" : "/personatics/personatics",
+      "x-WM-TAG" : "RestServiceVirtualController",
+      "x-WM-RELATIVE_PATH" : "",
+      "x-WM-COMPLETE_PATH" : "${rest.personatics.scheme}://${rest.personatics.host}${rest.personatics.basepath}/personatics"
+    }
+  },
+  "definitions" : {
+    "Response.detailsOfPurchaseEntryItem" : {
+      "required" : [ "purchaseSmallIcon", "purchasedAccount", "purchasedAmount", "purchasedDate", "purchasedFrom" ],
+      "properties" : {
+        "purchasedAccount" : {
+          "type" : "string"
+        },
+        "purchasedFrom" : {
+          "type" : "string"
+        },
+        "purchasedDate" : {
+          "type" : "string"
+        },
+        "purchasedAmount" : {
+          "type" : "string"
+        },
+        "purchaseSmallIcon" : {
+          "type" : "string"
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.Response.detailsOfPurchaseEntryItem",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    },
+    "Response.cashflowAccDetailsEntryItem" : {
+      "required" : [ "accName", "accNum", "cashFlowAccTrns", "noOfAccounts", "total_cash_flow" ],
+      "properties" : {
+        "accNum" : {
+          "type" : "string"
+        },
+        "cashFlowAccTrns" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Response.cashFlowAccTrnsEntryItem"
+          },
+          "x-WM-IS_LIST" : true
+        },
+        "total_cash_flow" : {
+          "type" : "string"
+        },
+        "accName" : {
+          "type" : "string"
+        },
+        "noOfAccounts" : {
+          "type" : "string"
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.Response.cashflowAccDetailsEntryItem",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    },
+    "Response.personaticsEntryItem" : {
+      "required" : [ "accBal", "accIcon", "accName", "accNum", "accSummaryTittle", "accTittle", "cashflowAccDetails", "consumer_details", "date", "debitTittle", "detailsOfPurchase", "detailsOfPurchaseTittle", "id", "largeImage", "no_of_payments", "no_of_receivables", "numberOfPlacesDebited", "partial_type", "paymentsTotal", "personaticName", "primaryText", "receivablesTotal", "secondaryDetails", "secondaryText", "secondaryTextTittle", "smallImage", "spotify_icon", "subscribed_to", "subscription_charges", "totalAmountDebited", "totalAmountTitle", "unsubscrption_link" ],
+      "properties" : {
+        "date" : {
+          "type" : "string"
+        },
+        "largeImage" : {
+          "type" : "string"
+        },
+        "receivablesTotal" : {
+          "type" : "string"
+        },
+        "smallImage" : {
+          "type" : "string"
+        },
+        "primaryText" : {
+          "type" : "string"
+        },
+        "secondaryDetails" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Response.secondaryDetailsEntryItem"
+          },
+          "x-WM-IS_LIST" : true
+        },
+        "no_of_receivables" : {
+          "type" : "string"
+        },
+        "partial_type" : {
+          "type" : "string"
+        },
+        "totalAmountTitle" : {
+          "type" : "string"
+        },
+        "no_of_payments" : {
+          "type" : "string"
+        },
+        "secondaryTextTittle" : {
+          "type" : "string"
+        },
+        "totalAmountDebited" : {
+          "type" : "string"
+        },
+        "subscription_charges" : {
+          "type" : "string"
+        },
+        "accIcon" : {
+          "type" : "string"
+        },
+        "consumer_details" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Response.consumer_detailsEntryItem"
+          },
+          "x-WM-IS_LIST" : true
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "detailsOfPurchase" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Response.detailsOfPurchaseEntryItem"
+          },
+          "x-WM-IS_LIST" : true
+        },
+        "accNum" : {
+          "type" : "string"
+        },
+        "accSummaryTittle" : {
+          "type" : "string"
+        },
+        "accName" : {
+          "type" : "string"
+        },
+        "unsubscrption_link" : {
+          "type" : "string"
+        },
+        "detailsOfPurchaseTittle" : {
+          "type" : "string"
+        },
+        "accBal" : {
+          "type" : "string"
+        },
+        "numberOfPlacesDebited" : {
+          "type" : "string"
+        },
+        "cashflowAccDetails" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Response.cashflowAccDetailsEntryItem"
+          },
+          "x-WM-IS_LIST" : true
+        },
+        "spotify_icon" : {
+          "type" : "string"
+        },
+        "secondaryText" : {
+          "type" : "string"
+        },
+        "accTittle" : {
+          "type" : "string"
+        },
+        "paymentsTotal" : {
+          "type" : "string"
+        },
+        "personaticName" : {
+          "type" : "string"
+        },
+        "subscribed_to" : {
+          "type" : "string"
+        },
+        "debitTittle" : {
+          "type" : "string"
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.Response.personaticsEntryItem",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    },
+    "Response.tranDetailsEntryItem" : {
+      "required" : [ "trnAmount", "trnDate", "trnId", "trnMerchant", "trnType" ],
+      "properties" : {
+        "trnMerchant" : {
+          "type" : "string"
+        },
+        "trnId" : {
+          "type" : "string"
+        },
+        "trnDate" : {
+          "type" : "string"
+        },
+        "trnType" : {
+          "type" : "string"
+        },
+        "trnAmount" : {
+          "type" : "string"
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.Response.tranDetailsEntryItem",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    },
+    "Response.consumer_detailsEntryItem" : {
+      "required" : [ "consumer_avg_budget", "consumer_avg_period", "consumer_icon", "consumer_lastmonth_spenings_percentage", "consumer_name", "isRecommendedForBudget" ],
+      "properties" : {
+        "consumer_avg_period" : {
+          "type" : "string"
+        },
+        "consumer_lastmonth_spenings_percentage" : {
+          "type" : "string"
+        },
+        "consumer_name" : {
+          "type" : "string"
+        },
+        "consumer_avg_budget" : {
+          "type" : "string"
+        },
+        "consumer_icon" : {
+          "type" : "string"
+        },
+        "isRecommendedForBudget" : {
+          "type" : "boolean"
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.Response.consumer_detailsEntryItem",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    },
+    "Response.secondaryDetailsEntryItem" : {
+      "required" : [ "secondaryText", "secondaryTextImg", "secondaryTextTittle" ],
+      "properties" : {
+        "secondaryTextTittle" : {
+          "type" : "string"
+        },
+        "secondaryTextImg" : {
+          "type" : "string"
+        },
+        "secondaryText" : {
+          "type" : "string"
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.Response.secondaryDetailsEntryItem",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    },
+    "RootResponse" : {
+      "required" : [ "personatics" ],
+      "properties" : {
+        "personatics" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Response.personaticsEntryItem"
+          },
+          "x-WM-IS_LIST" : true
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.RootResponse",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    },
+    "Response.cashFlowAccTrnsEntryItem" : {
+      "required" : [ "avgMonthlyBal", "changeFromAvg", "tranDetails", "tranMonth" ],
+      "properties" : {
+        "tranDetails" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Response.tranDetailsEntryItem"
+          },
+          "x-WM-IS_LIST" : true
+        },
+        "avgMonthlyBal" : {
+          "type" : "string"
+        },
+        "tranMonth" : {
+          "type" : "string"
+        },
+        "changeFromAvg" : {
+          "type" : "string"
+        }
+      },
+      "x-WM-FULLY_QUALIFIED_NAME" : "personatics.Response.cashFlowAccTrnsEntryItem",
+      "x-WM-TAGS" : [ "RestServiceVirtualController" ]
+    }
+  }
+}

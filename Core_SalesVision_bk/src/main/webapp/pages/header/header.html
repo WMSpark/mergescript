@@ -1,0 +1,18 @@
+<wm-partial name="header" type="header">
+    <wm-layoutgrid name="headerlayout">
+        <wm-gridrow name="headerrow" padding="1em">
+            <wm-gridcolumn columnwidth="6" name="gridcolumn3" horizontalalign="left" padding="unset unset unset 0.5em">
+                <wm-picture name="salesVisionLogo" picturesource="resources/images/logos/Logo-white.png"></wm-picture>
+            </wm-gridcolumn>
+            <wm-gridcolumn name="headerright" horizontalalign="right" verticalalign="middle" columnwidth="6">
+                <wm-container name="container1" display="inline-block" padding="0.4em 1em 0.4em unset" borderwidth="0px 1px 0px 0px" bordercolor="rgba(158, 165, 189, 0.3)" margin="0.2em 1.5em unset unset" borderstyle="solid">
+                    <wm-icon name="notificationsIcon" iconclass="wi wi-notifications fa-2x"></wm-icon>
+                </wm-container>
+                <wm-container name="container3" display="inline-block" class="pull-right" on-click="Actions.goToPage_MyProfile.invoke()">
+                    <wm-picture name="profilePicture" width="32px" height="32px" picturesource="bind:Variables.LoggedInUserREPS.firstRecord.picurl" shape="circle" bordercolor="#fff" borderstyle="solid" borderwidth="1px" margin="unset unset 0.25em unset"></wm-picture>
+                    <wm-label padding="unset 0.5em" name="usernameLable" caption="bind:Variables.LoggedInUserREPS.firstRecord.name" margin="1em unset unset unset" showindevice="sm,md,lg"></wm-label>
+                </wm-container>
+            </wm-gridcolumn>
+        </wm-gridrow>
+    </wm-layoutgrid>
+</wm-partial>

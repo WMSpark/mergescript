@@ -1,0 +1,105 @@
+<wm-page name="Dashboard" pagetitle="Dashboard">
+    <wm-header content="header" name="header" height="auto"></wm-header>
+    <wm-content name="content">
+        <wm-left-panel columnwidth="2" name="leftpanel" content="leftnav"></wm-left-panel>
+        <wm-page-content columnwidth="10" name="mainContent" padding="1em">
+            <wm-layoutgrid name="layoutgrid1">
+                <wm-gridrow name="gridrow19_1">
+                    <wm-gridcolumn columnwidth="9" name="gridcolumn29">
+                        <wm-label padding="unset 0.5em unset 1.25em" name="welcomeLable" caption="bind:appLocale.WelcomKey" fontunit="em" class="h2" margin="0px unset"></wm-label>
+                    </wm-gridcolumn>
+                    <wm-gridcolumn columnwidth="3" name="gridcolumn30" horizontalalign="right">
+                        <wm-switch datavalue="My View" dataset="My View, Team View" accessroles="Regional Sales Head,manager" name="MyViewTeamViewSwitch" show="bind:Variables.mvGetRole.dataSet.dataValue == 'salesHead'"></wm-switch>
+                    </wm-gridcolumn>
+                </wm-gridrow>
+                <wm-gridrow name="gridrow2">
+                    <wm-gridcolumn columnwidth="4" name="gridcolumn3" padding="0.75em 0.75em 0em 0.75em">
+                        <wm-panel iconclass="" autoclose="outsideClick" title="Goals" name="panel_goals">
+                            <wm-progress-circle width="215px" height="215px" name="progress_circle_goals" type="success" subtitle="Achieved" title="" captionplacement="inside" class="center-block" datavalue="bind:(Variables.QVGetSalesSum.dataSet.salesSum*100)/(Variables.weeklySalesTarget.dataSet.dataValue*4*Variables.QVGetSalesSum.dataSet.repCount)"></wm-progress-circle>
+                            <wm-container name="container4" horizontalalign="center" class="progess-ledgers" display="flex" backgroundcolor="#f3f5f7" margin="0em -0.5em -0.5em -0.5em" padding="1em" fontsize="14">
+                                <wm-container name="container29" display="inline-block" class="col-xs-6" horizontalalign="left" padding="unset 1% unset 10%">
+                                    <wm-icon name="salesTargetIcon" iconclass="wi wi-lens" color="#c2c2c2" class="pull-left"></wm-icon>
+                                    <wm-label padding="unset 0.5em" name="salesTargetLable" caption="Sales Target" whitespace="nowrap" margin="unset unset 0px unset"></wm-label>
+                                    <wm-label padding="unset 0.5em unset 1.75em" margin="unset unset 0px unset" caption="bind:Variables.weeklySalesTarget.dataSet.dataValue*4*Variables.QVGetSalesSum.dataSet.repCount | toCurrency: '$'" textalign="right"
+                                        name="salesTargetValue" color="#1c4165"></wm-label>
+                                </wm-container>
+                                <wm-container name="container30_1" display="inline-block" class="col-xs-6" horizontalalign="left" padding="unset unset unset 1em">
+                                    <wm-icon iconclass="wi wi-lens" name="targetAchievedIcon" class="pull-left text-success"></wm-icon>
+                                    <wm-label padding="unset 0.5em" caption="Target Achieved" name="targetAchievedLable" margin="unset unset 0px unset"></wm-label>
+                                    <wm-label padding="unset 0.5em unset 1.75em" name="targetAchivedValue" class="p" margin="unset unset 0px unset" caption="bind:Variables.QVGetSalesSum.dataSet.salesSum | toCurrency: '$'" textalign="left" color="#1c4165"></wm-label>
+                                </wm-container>
+                            </wm-container>
+                        </wm-panel>
+                    </wm-gridcolumn>
+                    <wm-gridcolumn columnwidth="4" name="gridcolumn5" padding="0.75em 0.75em 0em 0.75em">
+                        <wm-panel iconclass="" autoclose="outsideClick" title="Your Deals" name="panelDealStatus" accessroles="Regional Sales Head,manager" show="bind:Variables.mvGetRole.dataSet.dataValue == 'salesHead' &amp;&amp; Widgets.MyViewTeamViewSwitch.datavalue==&quot;My View&quot;">
+                            <wm-label caption="bind:(Variables.QVGetDealStatus.dataSet.reduce(reducer,0)) | toCurrency: '$'" fontsize="28" color="#333d5f" name="yourDealsValue" margin="-0.1em unset unset unset" padding="unset unset unset 0.5em"></wm-label>
+                            <wm-table name="dealStatusTable" title="" dataset="bind:Variables.QVGetDealStatus.dataSet" navigation="None" height="215px" gridclass="" class="no-shadow p-0 m-0 div-ellipsis" statehandler="none">
+                                <wm-table-column binding="quoteStatus" caption="Status" widget-type="label" edit-widget-type="text" type="string" readonly="true" show="true">
+                                    <wm-label caption="bind:row.getProperty('quoteStatus')" class="" conditionalclass="" condtionalstyle=""></wm-label>
+                                </wm-table-column>
+                                <wm-table-column binding="size" caption="Size" width="30%" edit-widget-type="number" type="long" readonly="true" formatpattern="toCurrency" currencypattern="USD" show="true"></wm-table-column>
+                                <wm-table-column binding="volume" caption="Volume" widget-type="label" width="70px" edit-widget-type="number" type="long" readonly="true" show="true">
+                                    <wm-label caption="bind:row.getProperty('volume')" class="" conditionalclass="" condtionalstyle=""></wm-label>
+                                </wm-table-column>
+                            </wm-table>
+                        </wm-panel>
+                        <wm-table name="upcomingPolicyRenewalsTable" title="Your Upcoming Policy Renewals" dataset="bind:Variables.GetUpcomingSales.dataSet" navigation="None" gridclass="" showheader="false" height="290px" accessroles="Sales Executive,user"
+                            class="div-ellipsis" show="bind:Variables.mvGetRole.dataSet.dataValue != 'salesHead'" statehandler="none">
+                            <wm-table-column binding="quotes.customers.name" caption="Customers Name" widget-type="label" edit-widget-type="text" type="string" readonly="true" searchable="false" show="true">
+                                <wm-label caption="bind:row.getProperty('quotes.customers.name').charAt(0)" class="profile-text" conditionalclass="" condtionalstyle=""></wm-label>
+                                <wm-label caption="bind:row.getProperty('quotes.customers.name')" class="" conditionalclass="" condtionalstyle=""></wm-label>
+                            </wm-table-column>
+                            <wm-table-column binding="renewalPeriod" caption="Renewal Period" widget-type="icon" width="45%" edit-widget-type="number" type="integer" generator="assigned" readonly="true" show="true">
+                                <wm-icon caption="bind:row.getProperty('renewalPeriod')+' Days Left'" iconclass="wi wi-clock fa-lg" iconposition="left" class="" conditionalclass="" conditionalstyle=""></wm-icon>
+                            </wm-table-column>
+                        </wm-table>
+                        <wm-table name="topPerformersTable" title="Top Performers" dataset="bind:Variables.QVGetTopPerformers.dataSet" navigation="None" gridclass="" height="290px" showheader="false" show="bind:Widgets.MyViewTeamViewSwitch.datavalue == &quot;Team View&quot;"
+                            statehandler="none">
+                            <wm-table-column binding="name" caption="Name" widget-type="label" edit-widget-type="text" type="string" readonly="true" show="true">
+                                <wm-label caption="bind:row.getProperty('name').charAt(0)" class="profile-text" conditionalclass="" condtionalstyle=""></wm-label>
+                                <wm-label caption="bind:row.getProperty('name')" class="" conditionalclass="" condtionalstyle=""></wm-label>
+                            </wm-table-column>
+                            <wm-table-column binding="percent" caption="Percent" widget-type="label" width="60px" edit-widget-type="number" type="double" readonly="true" show="true">
+                                <wm-label caption="bind:row.getProperty('percent') + &quot;%&quot;" class="" conditionalclass="" condtionalstyle="" conditionalstyle=""></wm-label>
+                            </wm-table-column>
+                        </wm-table>
+                    </wm-gridcolumn>
+                    <wm-gridcolumn columnwidth="4" name="gridcolumn4" padding="0.75em 0.75em 0em 0.75em">
+                        <wm-panel iconclass="" autoclose="outsideClick" title="Your Leads Overview" name="leadsPanel">
+                            <wm-label padding="0.5em" name="yourLeadsOverviewLable" caption="bind:Variables.WSGetLeadsData.dataSet.totalSize" fontsize="16" fontunit="px" color="#fff" backgroundimage="resources/images/imagelists/shield_icon.png" backgroundrepeat="no-repeat"
+                                backgroundposition="center" backgroundattachment="local" margin="unset unset 0.5em 0.75em"></wm-label>
+                            <wm-label padding="unset 0.5em" name="topLeadsLable" caption="Top Leads" fontsize="16" color="#333d5f" fontfamily="RobotoMedium"></wm-label>
+                            <wm-table name="LeadsTable" title="" dataset="bind:Variables.WSGetLeadsData.dataSet.records" navigation="None" gridclass="" class="p-0 m-0 no-shadow div-ellipsis" height="210px" statehandler="none">
+                                <wm-table-column binding="Name" caption="Name" widget-type="label" edit-widget-type="text" type="string" show="true" readonly="false">
+                                    <wm-label name="Name53" class="profile-text" caption="bind:row.getProperty('Name').charAt(0)"></wm-label>
+                                    <wm-label caption="bind:row.getProperty('Name')" class="" conditionalclass="" condtionalstyle=""></wm-label>
+                                </wm-table-column>
+                                <wm-table-column binding="Company" caption="Company" edit-widget-type="text" type="string" show="true" readonly="false"></wm-table-column>
+                            </wm-table>
+                        </wm-panel>
+                    </wm-gridcolumn>
+                </wm-gridrow>
+                <wm-gridrow name="gridrow4">
+                    <wm-gridcolumn columnwidth="4" name="gridcolumn8">
+                        <wm-list listclass="list-group" itemclass="list-group-item" template="true" template-name="Contact List" itemsperrow="xs-1 sm-1 md-1 lg-1" class="media-list" datafield="All Fields" statehandler="URL" name="randomuserList1" dataset="bind:Variables.randomUserData.dataSet"
+                            navigation="Basic" pagesize="20">
+                            <wm-listtemplate layout="inline" name="listtemplate1">
+                                <wm-container class="media-body" name="container5">
+                                    <wm-label class="p media-heading" name="Name" caption="bind:Variables.randomUserData.dataSet[$i].results[0].email" fontunit="em" padding="unset unset unset 1.25em"></wm-label>
+                                </wm-container>
+                            </wm-listtemplate>
+                        </wm-list>
+                    </wm-gridcolumn>
+                    <wm-gridcolumn columnwidth="4" name="gridcolumn9">
+                        <wm-label padding="unset 0.5em" name="label10" class="h4" caption="bind:Variables.javaservicetest.dataSet.value"></wm-label>
+                    </wm-gridcolumn>
+                    <wm-gridcolumn columnwidth="4" name="gridcolumn10">
+                        <wm-prefab prefabname="QRCode" name="QRCode1"></wm-prefab>
+                    </wm-gridcolumn>
+                </wm-gridrow>
+            </wm-layoutgrid>
+        </wm-page-content>
+    </wm-content>
+    <wm-footer name="footer" content="footer"></wm-footer>
+</wm-page>

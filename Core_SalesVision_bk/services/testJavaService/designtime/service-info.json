@@ -1,0 +1,7 @@
+{
+  "id" : "testJavaService",
+  "type" : "JavaService",
+  "packageNames" : [ "com.salesvision.testjavaservice" ],
+  "serviceClassNames" : [ "com.salesvision.testjavaservice.TestJavaService" ],
+  "title" : "testJavaService"
+}

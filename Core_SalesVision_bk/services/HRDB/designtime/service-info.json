@@ -1,0 +1,6 @@
+{
+  "id" : "HRDB",
+  "type" : "DataService",
+  "packageNames" : [ "com.salesvision.hrdb" ],
+  "title" : "HRDB"
+}
