@@ -1,6 +1,0 @@
-{
-  "id" : "SalesVision",
-  "type" : "DataService",
-  "packageNames" : [ "com.salesvision.salesvision" ],
-  "title" : "SalesVision"
-}
