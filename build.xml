@@ -322,10 +322,11 @@
 		<echo message="successfully replaced index.html"/>
 	</target>
 
+<!--
 	<target name= "copydeployprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.properties.CompareAndMergeProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/deployment.properties"/>
 			<arg value="${corerepo}_bk/profiles/deployment.properties"/>
 			<classpath>
@@ -338,7 +339,7 @@
 	<target name= "copydevprop">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
+		<java classname="comparision.properties.CompareAndMergeProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 			<arg value="${customrepo}/profiles/development.properties"/>
 			<arg value="${corerepo}_bk/profiles/development.properties"/>
 			<classpath>
@@ -347,6 +348,7 @@
 			</classpath>
 		</java>
 	</target>
+-->
 
 	<target name="profileCopy">
 		<property name="customrepo" value="${customrepo}"/>
@@ -355,7 +357,7 @@
 		<for list="${profiles}" param="profile" delimiter=",">
 			<sequential>
 				<echo message= "@{profile}"/>
-				<java classname="comparision.properties.CopyProfileProperties" fork="true" failonerror="true" maxmemory="128m">
+				<java classname="comparision.properties.CompareAndMergeProfileProperties" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${customrepo}/profiles/@{profile}"/>
 					<arg value="${corerepo}_bk/profiles/@{profile}"/>
 					<arg value="${isImplkeysadd}"/>
@@ -385,6 +387,7 @@
 		<echo message="successfully merged project user xml"/>
 	</target>
 
+<!--
 	<target name="removetag">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
@@ -392,6 +395,7 @@
 		<replaceregexp file="${corerepo}_bk/pom.xml" match="xsi:schemaLocation=(.*)" replace=">" byline="true">
 		</replaceregexp>
 	</target>
+-->
 
 	<target name="copysecurityJarinPOM">
 		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>

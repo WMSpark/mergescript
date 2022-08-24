@@ -127,7 +127,7 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 >   Example:folders = src/main/webapp/sbResources,src/main/webapp/resources/icons,src/main/webapp/resources/images
 
 #### files
-> Usage- Specify all the files along with the paths in where you wanted to retain files from implementation project
+> Usage- Specify all the files along with the paths in which you wanted to retain from implementation project
 
 >   Example:files= src/main/webapp/resources/newFileNameFromDerivedProject.js
 
