@@ -8,6 +8,76 @@
 	<taskdef name="if" classname="net.sf.antcontrib.logic.IfTask"/>
 	<taskdef resource="net/sf/antcontrib/antlib.xml"/>
 
+	<target name="copyimplresourcestocore">
+		<property file="${customrepo}/changes.properties" />
+		<property name="issecurity" value="${issecurity}" />
+		<antcall target ="createbackupdir" />
+		<antcall target ="readandcopypages" />
+		<antcall target ="readandcopyservices" />
+		<if>
+			<equals arg1="${issecurity}" arg2="true"/>
+			<then>
+				<echo message="security is enabled"/>
+				<antcall target="copysecurityservice" />
+			</then>
+		</if>
+		<antcall target ="readandcopyprefabs" />
+		<if>
+			<equals arg1="${dependencyJson}" arg2="true"/>
+			<then>
+				<antcall target = "copydependencies-json"/>
+			</then>
+		</if>
+		<antcall target ="readandcopyicons" />
+		<antcall target ="readandcopythemes"/>
+		<!-- <antcall target = "replacepomvalues" /> -->
+		<antcall target = "profileCopy"/>
+		<if>
+			<equals arg1="${i18n}" arg2="true"/>
+			<then>
+				<antcall target = "readandcopyi18n"/>
+			</then>
+		</if>
+		<antcall target = "copyEnJsonfile" />
+		<if>
+			<equals arg1="${appVariables}" arg2="true"/>
+			<then>
+				<antcall target = "copyappvariablesfile"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${appjs}" arg2="true"/>
+			<then>
+				<antcall target = "appjs1append"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${projectUserSpringXml}" arg2="true"/>
+			<then>
+				<antcall target = "copyProjectUserXml"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${wmprojectProperties}" arg2="true"/>
+			<then>
+				<antcall target = "copywmproject-properties"/>
+			</then>
+		</if>
+		<if>
+			<equals arg1="${wmFormattersJs}" arg2="true"/>
+			<then>
+				<antcall target = "copywmformatters-js"/>
+			</then>
+		</if>
+
+		<antcall target ="addingdependenciesinpom"/>
+		<antcall target ="readandcopyfolders" />
+		<antcall target ="readandcopyfiles"/>
+		<antcall target ="addingserviceconfigurationsinpom"/>
+		<antcall target = "replacepomvalues" />
+		<antcall target ="zipcorebackupfolder"/>
+	</target>
+
 	<target name= "createbackupdir">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
@@ -137,76 +207,6 @@
 		</for>
 	</target>
 
-	<target name="copyimplresourcestocore">
-		<property file="${customrepo}/changes.properties" />
-		<property name="issecurity" value="${issecurity}" />
-		<antcall target ="createbackupdir" />
-		<antcall target ="readandcopypages" />
-		<antcall target ="readandcopyservices" />
-		<if>
-			<equals arg1="${issecurity}" arg2="true"/>
-			<then>
-				<echo message="security is enabled"/>
-				<antcall target="copysecurityservice" />
-			</then>
-		</if>
-		<antcall target ="readandcopyprefabs" />
-		<if>
-			<equals arg1="${dependencyJson}" arg2="true"/>
-			<then>
-				<antcall target = "copydependencies-json"/>
-			</then>
-		</if>
-		<antcall target ="readandcopyicons" />
-		<antcall target ="readandcopythemes"/>
-		<!-- <antcall target = "replacepomvalues" /> -->
-		<antcall target = "profileCopy"/>
-		<if>
-			<equals arg1="${i18n}" arg2="true"/>
-			<then>
-				<antcall target = "readandcopyi18n"/>
-			</then>
-		</if>
-		<antcall target = "copyEnJsonfile" />
-		<if>
-			<equals arg1="${appVariables}" arg2="true"/>
-			<then>
-				<antcall target = "copyappvariablesfile"/>
-			</then>
-		</if>
-		<if>
-			<equals arg1="${appjs}" arg2="true"/>
-			<then>
-				<antcall target = "appjs1append"/>
-			</then>
-		</if>
-		<if>
-			<equals arg1="${projectUserSpringXml}" arg2="true"/>
-			<then>
-				<antcall target = "copyProjectUserXml"/>
-			</then>
-		</if>
-		<if>
-			<equals arg1="${wmprojectProperties}" arg2="true"/>
-			<then>
-				<antcall target = "copywmproject-properties"/>
-			</then>
-		</if>
-		<if>
-			<equals arg1="${wmFormattersJs}" arg2="true"/>
-			<then>
-				<antcall target = "copywmformatters-js"/>
-			</then>
-		</if>
-
-		<antcall target ="addingdependenciesinpom"/>
-		<antcall target ="readandcopyfolders" />
-		<antcall target ="readandcopyfiles"/>
-		<antcall target ="addingserviceconfigurationsinpom"/>
-		<antcall target = "replacepomvalues" />
-		<antcall target ="zipcorebackupfolder"/>
-	</target>
-
 	<target name="zipcorebackupfolder">
 		<property name="corerepo" value="${corerepo}"/>
 		<property name="customrepo" value="${customrepo}"/>
@@ -322,34 +322,6 @@
 		<echo message="successfully replaced index.html"/>
 	</target>
 
-<!--
-	<target name= "copydeployprop">
-		<property name="customrepo" value="${customrepo}"/>
-		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.properties.CompareAndMergeProfileProperties" fork="true" failonerror="true" maxmemory="128m">
-			<arg value="${customrepo}/profiles/deployment.properties"/>
-			<arg value="${corerepo}_bk/profiles/deployment.properties"/>
-			<classpath>
-				<pathelement location="dist/comparision-1.1.1-jar-with-dependencies.jar"/>
-			</classpath>
-		</java>
-		<echo message="successfully copied deployment properties"/>
-	</target>
-
-	<target name= "copydevprop">
-		<property name="customrepo" value="${customrepo}"/>
-		<property name="corerepo" value="${corerepo}"/>
-		<java classname="comparision.properties.CompareAndMergeProfileProperties" fork="true" failonerror="true" maxmemory="128m">
-			<arg value="${customrepo}/profiles/development.properties"/>
-			<arg value="${corerepo}_bk/profiles/development.properties"/>
-			<classpath>
-				<pathelement location="dist/comparision-1.1.1-jar-with-dependencies.jar"/>
-
-			</classpath>
-		</java>
-	</target>
--->
-
 	<target name="profileCopy">
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
@@ -386,16 +358,6 @@
 		</java>
 		<echo message="successfully merged project user xml"/>
 	</target>
-
-<!--
-	<target name="removetag">
-		<property name="customrepo" value="${customrepo}"/>
-		<property name="corerepo" value="${corerepo}"/>
-		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
-		<replaceregexp file="${corerepo}_bk/pom.xml" match="xsi:schemaLocation=(.*)" replace=">" byline="true">
-		</replaceregexp>
-	</target>
--->
 
 	<target name="copysecurityJarinPOM">
 		<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
