@@ -30,6 +30,7 @@
 		</if>
 		<antcall target ="readandcopyicons" />
 		<antcall target ="readandcopythemes"/>
+		<antcall target="copythemeindexfile"/>
 		<!-- <antcall target = "replacepomvalues" /> -->
 		<antcall target = "profileCopy"/>
 		<if>
@@ -185,7 +186,7 @@
 				<copy todir="${corerepo}_bk/src/main/webapp/themes/@{theme}" overwrite="true">
 					<fileset dir="${customrepo}/src/main/webapp/themes/@{theme}"/>
 				</copy>
-				<antcall target="copythemeindexfile"/>
+				<!--<antcall target="copythemeindexfile"/> -->
 			</sequential>
 		</for>
 	</target>
@@ -305,9 +306,6 @@
 		<property name="customrepo" value="${customrepo}"/>
 		<property name="corerepo" value="${corerepo}"/>
 		<property file="${customrepo}/changes.properties" />
-		<if>
-			<equals arg1="${issecurity}" arg2="true"/>
-			<then>
 				<java classname="comparision.html.ReplaceIndexHtml" fork="true" failonerror="true" maxmemory="128m">
 					<arg value="${corerepo}/src/main/webapp/index.html"/>
 					<arg value="${customrepo}/src/main/webapp/index.html"/>
@@ -317,8 +315,6 @@
 						<pathelement location="dist/comparision-1.1.1-jar-with-dependencies.jar"/>
 					</classpath>
 				</java>
-			</then>
-		</if>
 		<echo message="successfully replaced index.html"/>
 	</target>
 
