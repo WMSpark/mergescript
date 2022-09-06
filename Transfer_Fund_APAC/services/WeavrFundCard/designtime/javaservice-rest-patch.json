@@ -1,0 +1,212 @@
+{
+  "description" : null,
+  "methods" : {
+    "getDestination" : [ {
+      "url" : {
+        "value" : "/destination",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : { }
+    } ],
+    "getDestinationAmount" : [ {
+      "url" : {
+        "value" : "/destinationAmount",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : { }
+    } ],
+    "getProfileId" : [ {
+      "url" : {
+        "value" : "/profileId",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : { }
+    } ],
+    "getSource" : [ {
+      "url" : {
+        "value" : "/source",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : { }
+    } ],
+    "getTag" : [ {
+      "url" : {
+        "value" : "/tag",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : { }
+    } ],
+    "setDestination" : [ {
+      "url" : {
+        "value" : "/destination",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "PUT",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "destination" : {
+          "name" : {
+            "value" : "destination",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "BODY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : true,
+            "modified" : true
+          }
+        }
+      }
+    } ],
+    "setDestinationAmount" : [ {
+      "url" : {
+        "value" : "/destinationAmount",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "PUT",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "destinationAmount" : {
+          "name" : {
+            "value" : "destinationAmount",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "BODY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : true,
+            "modified" : true
+          }
+        }
+      }
+    } ],
+    "setProfileId" : [ {
+      "url" : {
+        "value" : "/profileId",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "PUT",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "profileId" : {
+          "name" : {
+            "value" : "profileId",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        }
+      }
+    } ],
+    "setSource" : [ {
+      "url" : {
+        "value" : "/source",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "PUT",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "source" : {
+          "name" : {
+            "value" : "source",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "BODY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : true,
+            "modified" : true
+          }
+        }
+      }
+    } ],
+    "setTag" : [ {
+      "url" : {
+        "value" : "/tag",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "PUT",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "tag" : {
+          "name" : {
+            "value" : "tag",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        }
+      }
+    } ],
+    "toString" : [ {
+      "url" : {
+        "value" : "/toString",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : { }
+    } ]
+  }
+}

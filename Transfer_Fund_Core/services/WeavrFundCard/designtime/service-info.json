@@ -1,0 +1,7 @@
+{
+  "id" : "WeavrFundCard",
+  "type" : "JavaService",
+  "packageNames" : [ "com.rb_transactions_only_prefab.weavrfundcard" ],
+  "serviceClassNames" : [ "com.rb_transactions_only_prefab.weavrfundcard.WeavrFundCard" ],
+  "title" : "WeavrFundCard"
+}

@@ -1,0 +1,281 @@
+{
+  "description" : "controller class for java service execution",
+  "methods" : {
+    "fundManagedCards" : [ {
+      "url" : {
+        "value" : "/fundManagedCards",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "POST",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "hostName" : {
+          "name" : {
+            "value" : "hostName",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "authorization" : {
+          "name" : {
+            "value" : "authorization",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "HEADER",
+            "modified" : true
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "formData" : {
+          "name" : {
+            "value" : "Map",
+            "modified" : true
+          },
+          "in" : {
+            "value" : "BODY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : true,
+            "modified" : true
+          }
+        },
+        "servletRequest" : {
+          "name" : {
+            "value" : "servletRequest",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "NONE",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        }
+      }
+    } ],
+    "getAllManagedAccountsOrLedgers" : [ {
+      "url" : {
+        "value" : "/allManagedaccountsOrLedgers",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "hostName" : {
+          "name" : {
+            "value" : "hostName",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "authorization" : {
+          "name" : {
+            "value" : "authorization",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "HEADER",
+            "modified" : true
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "profileOrUserId" : {
+          "name" : {
+            "value" : "profileOrUserId",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "servletRequest" : {
+          "name" : {
+            "value" : "servletRequest",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "NONE",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        }
+      }
+    } ],
+    "getAllManagedCardsOrBeneficiaries" : [ {
+      "url" : {
+        "value" : "/allManagedCardsOrBeneficiaries",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "hostName" : {
+          "name" : {
+            "value" : "hostName",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "authorization" : {
+          "name" : {
+            "value" : "authorization",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "HEADER",
+            "modified" : true
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "profileOrUserId" : {
+          "name" : {
+            "value" : "profileOrUserId",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "servletRequest" : {
+          "name" : {
+            "value" : "servletRequest",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "NONE",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        }
+      }
+    } ],
+    "getManagedAccountDetailsById" : [ {
+      "url" : {
+        "value" : "/managedAccountDetailsById",
+        "modified" : false
+      },
+      "method" : {
+        "value" : "GET",
+        "modified" : false
+      },
+      "accessSpecifier" : "APP_ONLY",
+      "parameters" : {
+        "hostName" : {
+          "name" : {
+            "value" : "hostName",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "authorization" : {
+          "name" : {
+            "value" : "authorization",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "HEADER",
+            "modified" : true
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "managedAccountId" : {
+          "name" : {
+            "value" : "managedAccountId",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "QUERY",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        },
+        "servletRequest" : {
+          "name" : {
+            "value" : "servletRequest",
+            "modified" : false
+          },
+          "in" : {
+            "value" : "NONE",
+            "modified" : false
+          },
+          "required" : {
+            "value" : false,
+            "modified" : false
+          }
+        }
+      }
+    } ]
+  }
+}
