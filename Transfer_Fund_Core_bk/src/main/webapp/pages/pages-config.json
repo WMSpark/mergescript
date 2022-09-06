@@ -1,9 +1,0 @@
-[ {
-  "name" : "Main",
-  "type" : "PAGE",
-  "params" : [ ]
-}, {
-  "name" : "VerticalLayout",
-  "type" : "PARTIAL",
-  "params" : [ ]
-} ]

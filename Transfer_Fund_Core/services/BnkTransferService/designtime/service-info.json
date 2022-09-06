@@ -1,7 +1,0 @@
-{
-  "id" : "BnkTransferService",
-  "type" : "JavaService",
-  "packageNames" : [ "com.transfer_funds.bnktransferservice" ],
-  "serviceClassNames" : [ "com.transfer_funds.bnktransferservice.BnkTransferService" ],
-  "title" : "BnkTransferService"
-}

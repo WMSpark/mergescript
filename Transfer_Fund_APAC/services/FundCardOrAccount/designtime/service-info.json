@@ -1,7 +1,0 @@
-{
-  "id" : "FundCardOrAccount",
-  "type" : "JavaService",
-  "packageNames" : [ "com.rb_transactions_only_prefab.fundcardoraccount" ],
-  "serviceClassNames" : [ "com.rb_transactions_only_prefab.fundcardoraccount.FundCardOrAccount" ],
-  "title" : "FundCardOrAccount"
-}

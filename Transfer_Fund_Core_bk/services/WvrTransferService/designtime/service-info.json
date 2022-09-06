@@ -1,7 +1,0 @@
-{
-  "id" : "WvrTransferService",
-  "type" : "JavaService",
-  "packageNames" : [ "com.transfer_funds.wvrtransferservice" ],
-  "serviceClassNames" : [ "com.transfer_funds.wvrtransferservice.WvrTransferService" ],
-  "title" : "WvrTransferService"
-}
