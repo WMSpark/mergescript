@@ -133,7 +133,7 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 
 ## Collaborators
 
-| SR No | Name                                                                                                                                | designation                                                  |
+| SR No | Name|
 | ----- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | 1     | [ Annapurna Kotte](https://github.com/Annapurna-Kotte)|
 | 2     | [  Venkateswarlu Kakani](https://github.com/wm-venkateshkakani)|
