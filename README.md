@@ -131,3 +131,11 @@ $ ant copyimplresourcestocore -Dcorerepo="sourceFolder" -Dcustomrepo="implementa
 
 >   Example:files= src/main/webapp/resources/newFileNameFromDerivedProject.js
 
+## Collaborators
+
+| SR No | Name                                                                                                                                | designation                                                  |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| 1     | [ Annapurna Kotte](https://github.com/Annapurna-Kotte)|
+| 2     | [  Venkateswarlu Kakani](https://github.com/wm-venkateshkakani)|
+| 3     | [ Karthik Peerlagudem](https://github.com/krthk-peerlagudem)|
+| 4     | [ Sagar Vemala](https://github.com/wm-sagarvemala)|
